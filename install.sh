@@ -19,4 +19,7 @@ link() {
 # Neovim
 link "$DOTFILES_DIR/nvim" "${XDG_CONFIG_HOME:-$HOME/.config}/nvim"
 
+# Lazygit
+link "$DOTFILES_DIR/lazygit" "${XDG_CONFIG_HOME:-$HOME/.config}/lazygit"
+
 echo "Done!"
