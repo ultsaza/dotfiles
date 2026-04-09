@@ -1,0 +1,159 @@
+{
+  "workbench.editor.empty.hint": "hidden",
+  "files.autoSave": "onFocusChange",
+  "editor.fontFamily": "'JetBrains Mono', 'monospace'",
+  "editor.allowVariableFontsInAccessibilityMode": true,
+  "editor.fontLigatures": true,
+  "editor.editContext": false, // 日本語入力の安定化のためにfalseにしてある。
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "workbench.colorCustomizations": {
+    "editorCursor.foreground": "#FFFF00",
+    "editorCursor.background": "#333333"
+  },
+  "terminal.integrated.fontLigatures.enabled": true,
+  "editor.inlineSuggest.fontFamily": "'JetBrains Mono', 'monospace'",
+  "terminal.integrated.fontFamily": "FantasqueSansM Nerd Font Mono",
+  "terminal.integrated.enableMultiLinePasteWarning": "never",
+  "vim.insertModeKeyBindings": [
+    {
+      "before": [
+        "j",
+        "k"
+      ],
+      "after": [
+        "<Esc>"
+      ]
+    }
+  ],
+  "workbench.iconTheme": "vscode-icons",
+  "explorer.confirmDelete": false,
+  "editor.cursorBlinking": "smooth",
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.allowedLinkSchemes": [
+    "file",
+    "http",
+    "https",
+    "mailto",
+    "vscode",
+    "vscode-insiders",
+    "docker-desktop"
+  ],
+  "git.autofetch": true,
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": false,
+    "markdown": true,
+    "scminput": false
+  },
+  "gitlens.ai.model": "vscode",
+  "gitlens.ai.vscode.model": "copilot:gpt-4.1",
+  "git.confirmSync": false,
+  "extensions.experimental.affinity": {
+    "asvetliakov.vscode-neovim": 1
+  },
+  "editor.lineNumbers": "relative",
+  "launch": {
+    "configurations": [
+      {
+        "preLaunchTask": "g++ デバッグ用コンパイル",
+        "name": "gdb: デバッグ実行",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${fileDirname}/${fileBasenameNoExtension}.out",
+        "args": [],
+        "stopAtEntry": false,
+        "cwd": "${fileDirname}",
+        "environment": [
+          {
+            "name": "UBSAN_OPTIONS",
+            "value": "abort_on_error=1:print_stacktrace=1"
+          },
+          {
+            "name": "ASAN_OPTIONS",
+            "value": "abort_on_error=1:detect_leaks=0"
+          }
+        ],
+        "externalConsole": false,
+        "MIMode": "gdb",
+        "setupCommands": [
+          {
+            "description": "gdb の再フォーマットを有効にする",
+            "text": "-enable-pretty-printing",
+            "ignoreFailures": true
+          },
+          {
+            "description": "逆アセンブリ フレーバーを Intel に設定",
+            "text": "-gdb-set disassembly-flavor intel",
+            "ignoreFailures": true
+          }
+        ]
+      }
+    ],
+    "version": "2.0.0"
+  },
+  "C_Cpp.default.cppStandard": "gnu++23",
+  "vim.useSystemClipboard": true,
+  "workbench.colorTheme": "Ayu Dark",
+  "explorer.confirmDragAndDrop": false,
+  "python.analysis.typeCheckingMode": "basic",
+  "rust-analyzer.completion.fullFunctionSignatures.enable": true,
+  "rust-analyzer.inlayHints.closureReturnTypeHints.enable": "always",
+  "rust-analyzer.inlayHints.genericParameterHints.type.enable": true,
+  "rust-analyzer.inlayHints.bindingModeHints.enable": true,
+  "vscode-neovim.highlightGroups.highlights": {
+    "IncSearch": {
+      "backgroundColor": "theme.editor.findMatchBackground"
+    },
+    "CurSearch": {
+      "backgroundColor": "theme.editor.findMatchBackground"
+    },
+    "Search": {
+      "backgroundColor": "theme.editor.findMatchHighlightBackground"
+    },
+    "Substitute": {
+      "backgroundColor": "theme.editor.foreground",
+      "color": "theme.editor.background"
+    }
+  },
+  "vscode-neovim.ctrlKeysForInsertMode": [
+    "c",
+    "d",
+    "h",
+    "j",
+    "m",
+    "o",
+    "r",
+    "t",
+    "u",
+    "w",
+    "a"
+  ],
+  "vscode-neovim.compositeKeys": {
+    "jk": {
+      "command": "vscode-neovim.escape"
+    }
+  },
+  "latex-workshop.latex.autoBuild.cleanAndRetry.enabled": false,
+  "python.analysis.supportAllPythonDocuments": true,
+  "python.analysis.cacheLSPData": true,
+  "python.analysis.enableAsyncProgram": true,
+  "python.analysis.enablePrecomputeContext": true,
+  "python.analysis.enableSnippetExtraTelemetry": true,
+  "geminicodeassist.project": "phrasal-record-8s8qv",
+  "files.watcherExclude": {
+    "**/.bloop": true,
+    "**/.metals": true
+  },
+  "metals.javaVersion": "24",
+  "chat.viewSessions.orientation": "stacked",
+  "atcoder-commiter.username": "ult_saza",
+  "atcoder-commiter.repoUrl": "https://github.com/ultsaza/archive-test.git",
+  "rust-analyzer.inlayHints.chainingHints.enable": false,
+  "rust-analyzer.inlayHints.closingBraceHints.enable": false,
+  "[java]": {
+    "editor.defaultFormatter": "redhat.java"
+  },
+  "debug.onTaskErrors": "abort",
+  "claudeCode.preferredLocation": "panel",
+  "github.copilot.nextEditSuggestions.eagerness": "high",
+}
