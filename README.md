@@ -2,7 +2,7 @@
 
 ## Set up on a new machine
 ```
-chezmoi init --apply https://github.com/<user>/dotfiles.git                                                                                                               
+chezmoi init --apply https://github.com/ultsaza/dotfiles.git                                                                                                               
 ```
 # Edit a config file
 ```
