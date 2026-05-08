@@ -1,0 +1,24 @@
+model = "gpt-5.5"
+model_reasoning_effort = "xhigh"
+personality = "pragmatic"
+sandbox_mode = "danger-full-access"
+approval_policy = "never"
+approvals_reviewer = "user"
+
+[notice]
+hide_full_access_warning = true
+
+[notice.model_migrations]
+"gpt-5.1-codex" = "gpt-5.2-codex"
+
+[tui]
+theme = "monokai-extended-bright"
+
+[tui.model_availability_nux]
+"gpt-5.5" = 4
+
+[plugins."github@openai-curated"]
+enabled = true
+
+[features]
+terminal_resize_reflow = true
