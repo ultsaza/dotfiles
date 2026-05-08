@@ -1,0 +1,46 @@
+{{- if eq .chezmoi.os "darwin" -}}
+# iTerm2-like clear dark appearance
+font-family = JetBrainsMono Nerd Font Mono
+font-size = 13
+font-feature = liga
+
+background = #050607
+foreground = #d8d8d8
+cursor-color = #d8d8d8
+selection-background = #2b4d6d
+selection-foreground = #ffffff
+
+background-opacity = 0.69
+background-opacity-cells = true
+background-blur = 20
+background-image = {{ .chezmoi.homeDir }}/Downloads/refined.jpg
+background-image-opacity = 0.2
+background-image-position = center
+background-image-fit = cover
+background-image-repeat = false
+
+window-width = 80
+window-height = 25
+window-padding-x = 8
+window-padding-y = 6
+macos-titlebar-style = transparent
+macos-option-as-alt = true
+unfocused-split-opacity = 0.9
+
+palette = 0=#14191e
+palette = 1=#b43c2a
+palette = 2=#00c200
+palette = 3=#c7c400
+palette = 4=#2743c7
+palette = 5=#c040be
+palette = 6=#00c5c7
+palette = 7=#c7c7c7
+palette = 8=#686868
+palette = 9=#dd7975
+palette = 10=#58e690
+palette = 11=#ece100
+palette = 12=#a7abf2
+palette = 13=#e17ee1
+palette = 14=#60fdff
+palette = 15=#ffffff
+{{- end -}}

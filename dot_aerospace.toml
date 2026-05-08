@@ -1,0 +1,138 @@
+# AeroSpace config
+# https://nikitabobko.github.io/AeroSpace/guide
+#
+# Hyper key (CapsLock via Karabiner) sends Cmd+Ctrl+Option.
+# CapsLock alone -> Escape.
+
+start-at-login = true
+
+after-startup-command = []
+on-window-detected = []
+
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'auto'
+
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+
+key-mapping.preset = 'qwerty'
+
+[gaps]
+inner.horizontal = 0
+inner.vertical = 0
+outer.left = 8
+outer.bottom = 8
+outer.top = 8
+outer.right = 8
+
+[mode.main.binding]
+# Layout
+cmd-ctrl-alt-slash = 'layout tiles horizontal vertical'
+cmd-ctrl-alt-comma = 'layout accordion horizontal vertical'
+cmd-ctrl-alt-f = 'fullscreen'
+cmd-ctrl-alt-shift-space = 'layout floating tiling'
+
+# Focus (Hyper + hjkl)
+cmd-ctrl-alt-h = 'focus left'
+cmd-ctrl-alt-j = 'focus down'
+cmd-ctrl-alt-k = 'focus up'
+cmd-ctrl-alt-l = 'focus right'
+
+# Move window (Hyper + Shift + hjkl)
+cmd-ctrl-alt-shift-h = 'move left'
+cmd-ctrl-alt-shift-j = 'move down'
+cmd-ctrl-alt-shift-k = 'move up'
+cmd-ctrl-alt-shift-l = 'move right'
+
+# Workspace switch (Hyper + 1-9)
+cmd-ctrl-alt-1 = 'workspace 1'
+cmd-ctrl-alt-2 = 'workspace 2'
+cmd-ctrl-alt-3 = 'workspace 3'
+cmd-ctrl-alt-4 = 'workspace 4'
+cmd-ctrl-alt-5 = 'workspace 5'
+cmd-ctrl-alt-6 = 'workspace 6'
+cmd-ctrl-alt-7 = 'workspace 7'
+cmd-ctrl-alt-8 = 'workspace 8'
+cmd-ctrl-alt-9 = 'workspace 9'
+
+# Move window to workspace (Hyper + Shift + 1-9)
+cmd-ctrl-alt-shift-1 = 'move-node-to-workspace 1'
+cmd-ctrl-alt-shift-2 = 'move-node-to-workspace 2'
+cmd-ctrl-alt-shift-3 = 'move-node-to-workspace 3'
+cmd-ctrl-alt-shift-4 = 'move-node-to-workspace 4'
+cmd-ctrl-alt-shift-5 = 'move-node-to-workspace 5'
+cmd-ctrl-alt-shift-6 = 'move-node-to-workspace 6'
+cmd-ctrl-alt-shift-7 = 'move-node-to-workspace 7'
+cmd-ctrl-alt-shift-8 = 'move-node-to-workspace 8'
+cmd-ctrl-alt-shift-9 = 'move-node-to-workspace 9'
+
+# Workspace navigation
+cmd-ctrl-alt-tab = 'workspace-back-and-forth'
+
+# Resize mode (Hyper + R, then hjkl, Esc/Enter to exit)
+cmd-ctrl-alt-r = 'mode resize'
+
+# Layout mode (Hyper + G, then hjkl = join-with, g = make 2x2 grid)
+cmd-ctrl-alt-g = 'mode layout'
+
+# Quick: arrange first 4 windows as 2x2 grid (Hyper + Shift + G)
+cmd-ctrl-alt-shift-g = 'exec-and-forget /Users/ult_saza/.config/aerospace/make-2x2.sh'
+
+# Close window (Hyper + Q)
+cmd-ctrl-alt-q = 'close'
+
+# Reload config
+cmd-ctrl-alt-shift-c = 'reload-config'
+
+# Launch terminal (Hyper + Return)
+cmd-ctrl-alt-enter = 'exec-and-forget open -na Ghostty'
+
+[mode.resize.binding]
+# Plain hjkl (works after CapsLock is released)
+h = 'resize width -5'
+j = 'resize height +5'
+k = 'resize height -5'
+l = 'resize width +5'
+
+# Larger steps with Shift
+shift-h = 'resize width -25'
+shift-j = 'resize height +25'
+shift-k = 'resize height -25'
+shift-l = 'resize width +25'
+
+# Same actions while CapsLock is still held (Hyper-prefixed)
+cmd-ctrl-alt-h = 'resize width -5'
+cmd-ctrl-alt-j = 'resize height +5'
+cmd-ctrl-alt-k = 'resize height -5'
+cmd-ctrl-alt-l = 'resize width +5'
+
+# Balance and exit
+b = 'balance-sizes'
+enter = 'mode main'
+esc = 'mode main'
+
+[mode.layout.binding]
+# Plain hjkl (after releasing CapsLock): join focused window with neighbor
+h = ['join-with left', 'mode main']
+j = ['join-with down', 'mode main']
+k = ['join-with up', 'mode main']
+l = ['join-with right', 'mode main']
+
+# Same while CapsLock is still held
+cmd-ctrl-alt-h = ['join-with left', 'mode main']
+cmd-ctrl-alt-j = ['join-with down', 'mode main']
+cmd-ctrl-alt-k = ['join-with up', 'mode main']
+cmd-ctrl-alt-l = ['join-with right', 'mode main']
+
+# Layout style
+t = ['layout tiles horizontal vertical', 'mode main']
+a = ['layout accordion horizontal vertical', 'mode main']
+b = ['balance-sizes', 'mode main']
+
+# 2x2 grid (script)
+g = ['exec-and-forget /Users/ult_saza/.config/aerospace/make-2x2.sh', 'mode main']
+
+enter = 'mode main'
+esc = 'mode main'
