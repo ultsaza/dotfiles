@@ -3,3 +3,6 @@ Library/Application Support/com.mitchellh.ghostty/config
 .aerospace.toml
 .config/aerospace
 {{- end }}
+{{- if ne .chezmoi.os "linux" }}
+.config/hypr
+{{- end }}
