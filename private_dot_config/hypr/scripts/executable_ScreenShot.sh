@@ -41,7 +41,7 @@ notify_view() {
 
     elif [[ "$1" == "swappy" ]]; then
 		"${sDIR}/Sounds.sh" --screenshot
-		resp=$(${notify_cmd_shot} " Screenshot:" " Captured by Swappy")
+		resp=$(timeout 5 ${notify_cmd_shot} " Screenshot:" " Captured by Swappy")
 		case "$resp" in
 			action1)
 				swappy -f - <"$tmpfile"
