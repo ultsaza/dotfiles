@@ -39,6 +39,18 @@ for pid in $(pidof waybar rofi swaync ags swaybg); do
   sleep 0.1
 done
 
+# Reap Waybar's long-running module helpers before relaunch. Waybar does not
+# reliably kill these when it exits, so they pile up across refreshes:
+#   cava          -> each survivor keeps redrawing  -> CPU spin (was ~194%)
+#   playerctl -F  -> each hoards inotify instances   -> eventual
+#                    "Too many open files" that silently breaks modules
+#   swaync-client -> idle -swb subscribers accumulate
+# (cava also self-reaps via WaybarCava.sh's trap on a clean TERM; this covers
+#  the SIGKILL / multi-instance cases.)
+pkill -x cava 2>/dev/null
+pkill -x playerctl 2>/dev/null
+pkill -f 'swaync-client -swb' 2>/dev/null
+
 #Restart waybar
 sleep 0.1
 waybar &

@@ -1,8 +1,18 @@
 #!/usr/bin/env bash
-# WaybarCava.sh — safer single-instance handling, cleanup, and robustness
-# Original concept by JaKooLit; this variant focuses on lifecycle hardening.
+# WaybarCava.sh — cava audio visualizer feed for Waybar.
+# Original concept by JaKooLit. This variant focuses on CPU cost & lifecycle:
+#   * framerate 15 (was 30) + duplicate-frame suppression -> Waybar performs
+#     ZERO redraws while audio is silent or unchanged. This was the main CPU
+#     hog: cava emits a frame every tick even in silence, and each line forced
+#     a full bar redraw, pegging ~2 cores with translucent CSS.
+#   * cleanup() kills the cava/sed/awk children on exit (the previous version
+#     used `exec` + a cleanup that only removed temp files, so cava leaked on
+#     every reload/crash and piled up across sessions).
+# Stale leftovers from an improperly-killed Waybar (SIGKILL, no TERM) are swept
+# in the Waybar (re)launch path (see Refresh.sh), not here, to keep this
+# per-bar hot path cheap and race-free on multi-monitor setups.
 
-set -euo pipefail
+set -uo pipefail
 
 # Ensure cava exists
 if ! command -v cava >/dev/null 2>&1; then
@@ -18,26 +28,19 @@ for ((i = 0; i < bar_length; i++)); do
   dict+=";s/$i/${bar:$i:1}/g"
 done
 
-# Single-instance guard (only kill our previous instance if it’s still alive)
+# Unique temp config; kill our children + remove the file on any exit.
 RUNTIME_DIR="${XDG_RUNTIME_DIR:-/tmp}"
-pidfile="$RUNTIME_DIR/waybar-cava.pid"
-if [[ -f "$pidfile" ]]; then
-  oldpid="$(cat "$pidfile" || true)"
-  if [[ -n "$oldpid" ]] && kill -0 "$oldpid" 2>/dev/null; then
-    kill "$oldpid" 2>/dev/null || true
-    sleep 0.1 || true
-  fi
-fi
-printf '%d' $$ >"$pidfile"
-
-# Unique temp config + cleanup on exit
 config_file="$(mktemp "$RUNTIME_DIR/waybar-cava.XXXXXX.conf")"
-cleanup() { rm -f "$config_file" "$pidfile"; }
+cleanup() {
+  trap - EXIT INT TERM
+  pkill -P $$ 2>/dev/null || true   # cava + sed + awk
+  rm -f "$config_file"
+}
 trap cleanup EXIT INT TERM
 
 cat >"$config_file" <<EOF
 [general]
-framerate = 30
+framerate = 15
 bars = 10
 
 [input]
@@ -51,5 +54,8 @@ data_format = ascii
 ascii_max_range = 7
 EOF
 
-# Stream cava output and translate digits 0..7 to bar glyphs
-exec cava -p "$config_file" | sed -u "$dict"
+# cava → glyph translation → emit only when the frame CHANGES. Suppressing
+# identical consecutive frames means no Waybar redraw while audio is silent or
+# static. No `exec`, so cava/sed/awk stay children of this script and are
+# reaped by cleanup() on exit.
+cava -p "$config_file" | sed -u "$dict" | awk '{ if ($0 != prev) { print; fflush() } prev = $0 }'
