@@ -31,7 +31,7 @@ bash "$(chezmoi source-path)/scripts/install-vscode-extensions.sh"
 
 Karabiner-ElementsにはCapsLockを`Cmd+Ctrl+Option`のHyperキー、単押しをEscapeにする設定とJISキーボード設定を保存しています。Karabiner-Elementsに必要な権限も許可してください。
 
-GhosttyのmacOS用の色、透過、フォントサイズは既存の設定を引き継いでいます。壁紙を使う場合は、その端末にある画像を`background-image`で指定してください。
+Ghosttyの背景・文字・カーソル・ANSI 16色はLinuxの配色を共通テンプレート`.chezmoitemplates/ghostty/colors.conf`で管理します。macOSのフォントサイズ、透過、ぼかし、ウィンドウ設定は端末向けの設定を使います。壁紙を使う場合は、その端末にある画像を`background-image`で指定してください。
 
 ## Linuxの初期設定
 
@@ -64,6 +64,16 @@ Claude CodeとCodexの設定は現在のモデル／UIの好みを保存して�
 
 VS Code拡張は上記スクリプトを明示的に実行して導入します。失敗した拡張は表示して非ゼロ終了し、同じコマンドで再試行できます。C++ビルドはLinuxで`g++`、macOSで`clang++`を使います。macOSではC++補完にも`/usr/bin/clang++`を指定し、導入済みのJetBrainsMono Nerd Fontをターミナルで使います。保存済みのGDBデバッグ設定はLinuxだけに配置します。
 
+## シェルの配色と補完
+
+Powerlevel10kのプロンプトは両OSで同じ`~/.p10k.zsh`を使います。入力中のコマンドは`zsh-syntax-highlighting`で色を付け、コメントはLinuxと同じ`fg=244`にします。Linuxでは導入済みのOh My Zshプラグインを読み込み、macOSではBrewfileから`zsh-syntax-highlighting`と`zsh-autosuggestions`を導入して読み込みます。Oh My ZshがなくてもMacの配色と履歴候補は有効になります。
+
+Tab補完はOh My Zshの初期化を利用し、未導入ならZshの`compinit`を実行します。候補メニュー、大文字小文字を区別しない照合、部分一致を共通設定にしています。macOSではHomebrewの補完と`zsh-completions`を初期化前に`fpath`へ加えます。[Homebrewの補完手順](https://docs.brew.sh/Shell-Completion)と[追加補完の導入方法](https://formulae.brew.sh/formula/zsh-completions)に沿った配置です。
+
+入力中に薄い文字で表示する候補は、`zsh-autosuggestions`による履歴ベースの提案です。行末で右矢印を押すと採用します。履歴は`~/.zsh_history`へ保存して複数のシェルで共有し、先頭が空白のコマンドと連続した重複は保存しません。履歴を持たない初回のシェルでは候補もありません。AIによる提案は追加の`zsh-ai`と接続先が必要で、Brewfileによる基本構成には含めません。
+
+既存のMacへこの構成を取り込む場合は、`chezmoi git pull --ff-only`、`brew bundle --file="$(chezmoi source-path)/Brewfile"`、`chezmoi diff`、`chezmoi apply`の順に実行してから新しいシェルを開きます。
+
 ## 日常の更新
 
 ```sh
@@ -95,4 +105,4 @@ cd "$(chezmoi source-path)"
 python3 -m unittest discover -s tests -v
 ```
 
-Linux、macOS arm64／amd64の設定を空白入りの一時ホームへ実際に展開し、配置先、OS固有ファイルの除外、シェル起動、JSON／TOML、起動リンク、再適用の安定性を確認します。GitHub ActionsでもUbuntuとmacOSで実行します。テストは実際のホームへ適用せず、拡張のインストールやデスクトップの再起動も行いません。GUIアプリの実動作と権限設定は各端末で確認してください。
+Linux、macOS arm64／amd64の設定を空白入りの一時ホームへ実際に展開し、配置先、OS固有ファイルの除外、シェル起動、JSON／TOML、起動リンク、再適用の安定性を確認します。疑似端末でTabキーを入力し、`git --ver`から`git --version`への引数補完と履歴保存も確認します。GitHub ActionsではUbuntuとmacOSで実行し、macOSでは実際のHomebrewプラグインの読み込みも確認します。Macでローカルテストを実行する場合もBrewfileのプラグインを導入してください。テストは実際のホームへ適用せず、拡張のインストールやデスクトップの再起動も行いません。GUIアプリの実動作と権限設定は各端末で確認してください。

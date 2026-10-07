@@ -3,11 +3,15 @@
 import json
 import os
 from pathlib import Path
+import pty
 import re
+import select
 import shutil
 import stat
 import subprocess
+import sys
 import tempfile
+import time
 import tomllib
 import unittest
 
@@ -16,6 +20,39 @@ SOURCE = Path(__file__).resolve().parents[1]
 
 
 class DotfilesTest(unittest.TestCase):
+    def check_tab_completion(self, shell, home):
+        # Exercise argument completion with a real line editor and no framework.
+        # Plain Zsh filename completion cannot expand git's --version option.
+        master, slave = pty.openpty()
+        process = subprocess.Popen(
+            [shell, "-di"], stdin=slave, stdout=subprocess.DEVNULL, stderr=slave,
+            env={"HOME": str(home), "PATH": "/usr/bin:/bin", "TERM": "xterm-256color"},
+        )
+        os.close(slave)
+        output = bytearray()
+        try:
+            os.write(master, b'git --ver\t > "$HOME/tab-result.txt"\nexit\n')
+            deadline = time.monotonic() + 20
+            while process.poll() is None and time.monotonic() < deadline:
+                if select.select([master], [], [], 0.1)[0]:
+                    try:
+                        output.extend(os.read(master, 65536))
+                    except OSError:
+                        break
+            process.wait(timeout=2)
+            result = home / "tab-result.txt"
+            self.assertTrue(result.is_file(), output.decode(errors="replace"))
+            self.assertTrue(result.read_text().startswith("git version "),
+                            output.decode(errors="replace"))
+            history = home / ".zsh_history"
+            self.assertTrue(history.is_file(), "History must persist for suggestions in new shells")
+            self.assertIn("git --version", history.read_text())
+        finally:
+            if process.poll() is None:
+                process.kill()
+                process.wait()
+            os.close(master)
+
     def test_script_syntax(self):
         # Catch broken imported scripts before anyone applies them to a desktop.
         for file in SOURCE.rglob("*"):
@@ -157,6 +194,16 @@ class DotfilesTest(unittest.TestCase):
             self.assertEqual(startup.returncode, 0, startup.stderr)
             self.assertEqual(startup.stderr, "")
             self.assertIn(str(home / ".local/bin"), startup.stdout.split(":"))
+            self.check_tab_completion(shell, home)
+            if platform == "darwin" and sys.platform == "darwin":
+                # Native macOS CI installs the real Homebrew packages.
+                plugins = subprocess.run(
+                    [shell, "-dfc", 'source "$HOME/.zshenv"; source "$HOME/.zshrc"; '
+                     '(( $+functions[_zsh_autosuggest_start] && $+functions[_zsh_highlight] ))'],
+                    env={"HOME": str(home), "PATH": "/usr/bin:/bin", "TERM": "xterm-256color"},
+                    capture_output=True, text=True,
+                )
+                self.assertEqual(plugins.returncode, 0, plugins.stderr)
 
             # A second apply must leave the installed content unchanged.
             before = {str(p.relative_to(home)): p.read_bytes() for p in home.rglob("*")

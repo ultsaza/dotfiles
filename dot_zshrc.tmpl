@@ -9,6 +9,13 @@ if [[ -x /opt/homebrew/bin/brew ]]; then
 elif [[ -x /usr/local/bin/brew ]]; then
   eval "$(/usr/local/bin/brew shellenv)"
 fi
+typeset -U fpath
+if [[ -n "${HOMEBREW_PREFIX:-}" ]]; then
+  for completion_dir in "$HOMEBREW_PREFIX/share/zsh/site-functions" "$HOMEBREW_PREFIX/share/zsh-completions"; do
+    [[ -d "$completion_dir" ]] && fpath=("$completion_dir" $fpath)
+  done
+  unset completion_dir
+fi
 export PNPM_HOME="$HOME/Library/pnpm"
 if [[ -x /usr/libexec/java_home ]]; then
   JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null) && export JAVA_HOME
@@ -24,7 +31,7 @@ fi
 
 # Load only plugins that have actually been installed.
 plugins=(git)
-for plugin in zsh-autosuggestions zsh-syntax-highlighting zsh-256color zsh-ai; do
+for plugin in zsh-autosuggestions zsh-256color zsh-ai zsh-syntax-highlighting; do
   if [[ -d "${ZSH_CUSTOM:-$ZSH/custom}/plugins/$plugin" || -d "$ZSH/plugins/$plugin" ]]; then
     plugins+=($plugin)
   fi
@@ -32,9 +39,25 @@ done
 ZSH_THEME=robbyrussell
 [[ -r "${ZSH_CUSTOM:-$ZSH/custom}/themes/agnosterzak.zsh-theme" || -r "$ZSH/themes/agnosterzak.zsh-theme" ]] && ZSH_THEME=agnosterzak
 [[ -r "$ZSH/oh-my-zsh.sh" ]] && source "$ZSH/oh-my-zsh.sh"
-if (( $+parameters[ZSH_HIGHLIGHT_STYLES] )); then
-  ZSH_HIGHLIGHT_STYLES[comment]='fg=244'
+
+# Oh My Zsh initializes completion; plain Zsh needs its own initialization.
+if (( ! $+functions[compdef] )); then
+  autoload -Uz compinit bashcompinit
+  compinit -i
+  bashcompinit
 fi
+zmodload zsh/complist
+setopt AUTO_MENU COMPLETE_IN_WORD ALWAYS_TO_END
+zstyle ':completion:*:*:*:*:*' menu select
+zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'r:|=*' 'l:|=* r:|=*'
+
+# Keep history-based suggestions useful across sessions, also without Oh My Zsh.
+HISTFILE="${HISTFILE:-$HOME/.zsh_history}"
+(( HISTSIZE < 50000 )) && HISTSIZE=50000
+(( SAVEHIST < 10000 )) && SAVEHIST=10000
+setopt EXTENDED_HISTORY HIST_EXPIRE_DUPS_FIRST HIST_IGNORE_DUPS HIST_IGNORE_SPACE HIST_VERIFY SHARE_HISTORY
+typeset -gA ZSH_HIGHLIGHT_STYLES
+ZSH_HIGHLIGHT_STYLES[comment]='fg=244'
 
 if [[ -r "$HOME/powerlevel10k/powerlevel10k.zsh-theme" ]]; then
   source "$HOME/powerlevel10k/powerlevel10k.zsh-theme"
@@ -63,7 +86,21 @@ export NVM_DIR="$HOME/.nvm"
 [[ -s "$NVM_DIR/bash_completion" ]] && source "$NVM_DIR/bash_completion"
 [[ -t 1 ]] && command -v fastfetch >/dev/null && fastfetch --show-errors
 
+{{ if eq .chezmoi.os "darwin" -}}
+# Homebrew plugins work without Oh My Zsh; avoid loading an existing plugin twice.
+if (( ! $+functions[_zsh_autosuggest_start] )) && [[ -n "${HOMEBREW_PREFIX:-}" && -r "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
+  source "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+fi
+{{ end -}}
+
 # Machine-specific aliases, VPN endpoints and secrets stay outside Git.
 [[ -r "$HOME/.zshrc.local" ]] && source "$HOME/.zshrc.local"
+
+{{ if eq .chezmoi.os "darwin" -}}
+# Syntax highlighting must load after plugins and local widget definitions.
+if (( ! $+functions[_zsh_highlight] )) && [[ -n "${HOMEBREW_PREFIX:-}" && -r "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
+  source "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+fi
+{{ end -}}
 # Successful startup must not depend on the optional local file existing.
 true
