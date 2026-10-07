@@ -1,0 +1,31 @@
+#!/bin/bash
+# Resolve the Homebrew GCC driver each time, including after a major upgrade.
+set -euo pipefail
+
+compiler={{ .compiler | quote }}
+if [[ -n "${HOMEBREW_PREFIX:-}" ]]; then
+  prefixes=("$HOMEBREW_PREFIX")
+else
+  prefixes=(/opt/homebrew /usr/local)
+fi
+
+for prefix in "${prefixes[@]}"; do
+  selected=""
+  selected_major=0
+  for candidate in "$prefix/opt/gcc/bin/$compiler"-*; do
+    [[ -x "$candidate" ]] || continue
+    version=${candidate##*/}
+    version=${version#"$compiler-"}
+    [[ "$version" =~ ^[0-9]+$ ]] || continue
+    if (( 10#$version > selected_major )); then
+      selected=$candidate
+      selected_major=$((10#$version))
+    fi
+  done
+  if [[ -n "$selected" ]]; then
+    exec "$selected" "$@"
+  fi
+done
+
+printf 'Homebrew %s was not found. Install GCC with: brew install gcc\n' "$compiler" >&2
+exit 127

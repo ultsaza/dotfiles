@@ -25,6 +25,8 @@ Library
 Library/**
 .config/karabiner
 .config/karabiner/**
+.local/bin/gcc
+.local/bin/g++
 {{ end }}
 {{ if ne .chezmoi.os "linux" }}
 .config/Code

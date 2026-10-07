@@ -1,4 +1,5 @@
 {{- $settings := includeTemplate "vscode/settings.darwin.json" . | fromJson -}}
+{{- $_ := set $settings "C_Cpp.default.compilerPath" (joinPath .chezmoi.homeDir ".local/bin/g++") -}}
 {{- $localPath := joinPath .chezmoi.homeDir ".config/dotfiles/vscode.local.json" -}}
 {{- if stat $localPath -}}
 {{- $settings = mergeOverwrite $settings (include $localPath | fromJsonc) -}}

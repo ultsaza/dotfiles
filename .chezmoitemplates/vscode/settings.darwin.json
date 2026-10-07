@@ -172,6 +172,5 @@
     "{hexdiff}:/**/*.*": "hexEditor.hexedit"
   },
   "workbench.iconTheme": "vscode-jetbrains-icon-theme-2023-auto",
-  "workbench.startupEditor": "none",
-  "C_Cpp.default.compilerPath": "/usr/bin/clang++"
+  "workbench.startupEditor": "none"
 }

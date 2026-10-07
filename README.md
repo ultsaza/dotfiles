@@ -63,7 +63,9 @@ Zshのローカル設定は`~/.zshrc.local`へ置きます。VPNやSSHの接続�
 
 Claude CodeとCodexの設定ディレクトリ（`~/.claude`、`~/.codex`）はchezmoiの管理対象から除外しています。モデル／UIの好み、APIキー、プロジェクト信頼設定、フック、プラグインは各端末で管理します。以前の管理対象から外しても、端末にある設定ファイルは削除しません。
 
-VS CodeのmacOS設定・キーバインドと共通の拡張一覧は、2026-10-08時点のMacで使っている構成を保存しています。Linuxの設定・キーバインドは別テンプレートです。拡張は上記スクリプトを明示的に実行して導入します。失敗した拡張は表示して非ゼロ終了し、同じコマンドで再試行できます。C++ビルドタスクはLinuxで`g++`、macOSで`clang++`を使います。macOSのC++補完の既定値は`/usr/bin/clang++`です。導入済みのJetBrainsMono Nerd Fontをターミナルで使い、保存済みのGDBデバッグ設定はLinuxだけに配置します。
+VS CodeのmacOS設定・キーバインドと共通の拡張一覧は、2026-10-08時点のMacで使っている構成を保存しています。Linuxの設定・キーバインドは別テンプレートです。拡張は上記スクリプトを明示的に実行して導入します。失敗した拡張は表示して非ゼロ終了し、同じコマンドで再試行できます。C++ビルドタスクはLinuxで`g++`、macOSで`clang++`を使います。macOSのC++補完の既定値は`~/.local/bin/g++`です。導入済みのJetBrainsMono Nerd Fontをターミナルで使い、保存済みのGDBデバッグ設定はLinuxだけに配置します。
+
+macOSには`~/.local/bin/gcc`と`~/.local/bin/g++`を配置します。実行時にHomebrewの`opt/gcc/bin`から最新の導入済みドライバーを選ぶため、GCCのメジャーバージョンが更新されても同じ名前・パスで使えます。`HOMEBREW_PREFIX`が設定済みならその導入先を使い、未設定ならApple Siliconの`/opt/homebrew`とIntelの`/usr/local`を探します。GCCが未導入の場合は`brew install gcc`を案内して終了します。以前の`gcc-15`などを指すエイリアスが`~/.zprofile`や`~/.zshrc.local`にあれば、そのエイリアスを削除してPATHから起動してください。
 
 Mac固有のVS Code設定は`~/.config/dotfiles/vscode.local.json`へ保存します。JSON／JSONC形式で、macOS設定へ重ねてローカルの値を優先します。このファイルはGitにもchezmoiの管理対象にも入りません。既存の`remote.SSH.*`や独自の`C_Cpp.default.compilerPath`をここへ移しておけば、再適用してもその端末の接続先・コンパイラー設定を保持できます。
 

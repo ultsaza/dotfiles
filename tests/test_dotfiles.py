@@ -134,13 +134,18 @@ class DotfilesTest(unittest.TestCase):
                              "g++" if platform == "linux" else "clang++")
             if platform == "darwin":
                 self.assertEqual(settings["launch"]["configurations"], [])
-                self.assertEqual(settings["C_Cpp.default.compilerPath"], "/usr/bin/clang++")
+                self.assertEqual(settings["C_Cpp.default.compilerPath"],
+                                 str(home / ".local/bin/g++"))
+                for compiler in ["gcc", "g++"]:
+                    self.assertTrue(os.access(home / ".local/bin" / compiler, os.X_OK))
                 self.assertEqual(settings["terminal.integrated.fontFamily"],
                                  "'JetBrainsMono Nerd Font Mono'")
                 self.assertEqual(read_json(native / "keybindings.json")[0]["key"], "ctrl+cmd+b")
             else:
                 self.assertIn("launch", settings)
                 self.assertNotIn("C_Cpp.default.compilerPath", settings)
+                for compiler in ["gcc", "g++"]:
+                    self.assertFalse((home / ".local/bin" / compiler).exists())
 
             if platform == "linux":
                 for name in ["hyprland.lua", "variables.lua", "startup.lua",
