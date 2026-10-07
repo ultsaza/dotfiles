@@ -4,7 +4,8 @@
 
 # variables
 time=$(date "+%d-%b_%H-%M-%S")
-dir="$(xdg-user-dir PICTURES)/Screenshots"
+PICTURES_DIR="$(xdg-user-dir PICTURES 2>/dev/null || echo "$HOME/Pictures")"
+dir="$PICTURES_DIR/Screenshots"
 file="Screenshot_${time}_${RANDOM}.png"
 
 iDIR="$HOME/.config/swaync/icons"
@@ -24,7 +25,7 @@ notify_cmd_NOT="notify-send -u low -i ${iDoR}/note.png "
 notify_view() {
     if [[ "$1" == "active" ]]; then
         if [[ -e "${active_window_path}" ]]; then
-			"${sDIR}/Sounds.sh" --screenshot        
+			"${sDIR}/Sounds.sh" --screenshot
             resp=$(timeout 5 ${notify_cmd_shot_win} " Screenshot of:" " ${active_window_class} Saved.")
             case "$resp" in
 				action1)
@@ -130,7 +131,7 @@ shotactive() {
 
 shotswappy() {
 	tmpfile=$(mktemp)
-	grim -g "$(slurp)" - >"$tmpfile" 
+	grim -g "$(slurp)" - >"$tmpfile"
 
   # Copy without saving
   if [[ -s "$tmpfile" ]]; then

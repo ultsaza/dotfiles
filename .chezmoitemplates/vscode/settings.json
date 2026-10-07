@@ -1,0 +1,164 @@
+{
+  "C_Cpp.default.cppStandard": "gnu++23",
+  "[java]": {
+    "editor.defaultFormatter": "redhat.java"
+  },
+  "atcoder-commiter.repoUrl": "https://github.com/ultsaza/archive-test.git",
+  "atcoder-commiter.username": "ult_saza",
+  "chat.viewSessions.orientation": "stacked",
+  "claudeCode.preferredLocation": "panel",
+  "debug.onTaskErrors": "abort",
+  "editor.allowVariableFontsInAccessibilityMode": true,
+  "editor.cursorBlinking": "smooth",
+  "editor.editContext": false,
+  "editor.fontFamily": "'JetBrains Mono', 'monospace'",
+  "editor.fontLigatures": true,
+  "editor.inlineSuggest.fontFamily": "'JetBrains Mono', 'monospace'",
+  "editor.lineNumbers": "relative",
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  "extensions.experimental.affinity": {
+    "asvetliakov.vscode-neovim": 1
+  },
+  "files.autoSave": "onFocusChange",
+  "files.watcherExclude": {
+    "**/.bloop": true,
+    "**/.metals": true
+  },
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "github.copilot.enable": {
+    "*": true,
+    "markdown": true,
+    "plaintext": false,
+    "scminput": false
+  },
+  "github.copilot.nextEditSuggestions.eagerness": "high",
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "go.toolsManagement.autoUpdate": true,
+  "latex-workshop.latex.autoBuild.cleanAndRetry.enabled": false,
+  "metals.javaVersion": "24",
+  "python.analysis.cacheLSPData": true,
+  "python.analysis.enableAsyncProgram": true,
+  "python.analysis.enablePrecomputeContext": true,
+  "python.analysis.enableSnippetExtraTelemetry": true,
+  "python.analysis.supportAllPythonDocuments": true,
+  "python.analysis.typeCheckingMode": "basic",
+  "rust-analyzer.completion.fullFunctionSignatures.enable": true,
+  "rust-analyzer.inlayHints.bindingModeHints.enable": true,
+  "rust-analyzer.inlayHints.chainingHints.enable": false,
+  "rust-analyzer.inlayHints.closingBraceHints.enable": false,
+  "rust-analyzer.inlayHints.closureReturnTypeHints.enable": "always",
+  "rust-analyzer.inlayHints.genericParameterHints.type.enable": true,
+  "terminal.integrated.allowedLinkSchemes": [
+    "file",
+    "http",
+    "https",
+    "mailto",
+    "vscode",
+    "vscode-insiders",
+    "docker-desktop"
+  ],
+  "terminal.integrated.cursorBlinking": true,
+  "terminal.integrated.enableMultiLinePasteWarning": "never",
+  "terminal.integrated.fontFamily": "FantasqueSansM Nerd Font Mono",
+  "terminal.integrated.fontLigatures.enabled": true,
+  "vim.insertModeKeyBindings": [
+    {
+      "after": [
+        "<Esc>"
+      ],
+      "before": [
+        "j",
+        "k"
+      ]
+    }
+  ],
+  "vim.useSystemClipboard": true,
+  "vscode-neovim.compositeKeys": {
+    "jk": {
+      "command": "vscode-neovim.escape"
+    }
+  },
+  "vscode-neovim.ctrlKeysForInsertMode": [
+    "c",
+    "d",
+    "h",
+    "j",
+    "m",
+    "o",
+    "r",
+    "t",
+    "u",
+    "w",
+    "a"
+  ],
+  "vscode-neovim.highlightGroups.highlights": {
+    "CurSearch": {
+      "backgroundColor": "theme.editor.findMatchBackground"
+    },
+    "IncSearch": {
+      "backgroundColor": "theme.editor.findMatchBackground"
+    },
+    "Search": {
+      "backgroundColor": "theme.editor.findMatchHighlightBackground"
+    },
+    "Substitute": {
+      "backgroundColor": "theme.editor.foreground",
+      "color": "theme.editor.background"
+    }
+  },
+  "workbench.colorCustomizations": {
+    "editorCursor.background": "#333333",
+    "editorCursor.foreground": "#FFFF00"
+  },
+  "workbench.colorTheme": "yuyuko-vim-vsc ocean",
+  "workbench.editor.empty.hint": "hidden",
+  "workbench.editorAssociations": {
+    "*.PDF": "pdf.preview",
+    "*.copilotmd": "vscode.markdown.preview.editor"
+  },
+  "workbench.iconTheme": "vscode-icons",
+{{ if eq .chezmoi.os "linux" }}
+  "launch": {
+    "configurations": [
+      {
+        "MIMode": "gdb",
+        "args": [],
+        "cwd": "${fileDirname}",
+        "environment": [
+          {
+            "name": "UBSAN_OPTIONS",
+            "value": "abort_on_error=1:print_stacktrace=1"
+          },
+          {
+            "name": "ASAN_OPTIONS",
+            "value": "abort_on_error=1:detect_leaks=0"
+          }
+        ],
+        "externalConsole": false,
+        "name": "gdb: デバッグ実行",
+        "preLaunchTask": "g++ デバッグ用コンパイル",
+        "program": "${fileDirname}/${fileBasenameNoExtension}.out",
+        "request": "launch",
+        "setupCommands": [
+          {
+            "description": "gdb の再フォーマットを有効にする",
+            "ignoreFailures": true,
+            "text": "-enable-pretty-printing"
+          },
+          {
+            "description": "逆アセンブリ フレーバーを Intel に設定",
+            "ignoreFailures": true,
+            "text": "-gdb-set disassembly-flavor intel"
+          }
+        ],
+        "stopAtEntry": false,
+        "type": "cppdbg"
+      }
+    ],
+    "version": "2.0.0"
+  },
+{{ end }}
+  "terminal.integrated.defaultProfile.{{ if eq .chezmoi.os "darwin" }}osx{{ else }}linux{{ end }}": "zsh"
+}

@@ -1,0 +1,6 @@
+[
+  {
+    "command": "prettier.forceFormatDocument",
+    "key": "{{ if eq .chezmoi.os "darwin" }}cmd+shift+0{{ else }}ctrl+shift+0{{ end }}"
+  }
+]

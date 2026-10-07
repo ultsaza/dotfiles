@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Keep Ghostty's fontconfig cache separate from incompatible shared caches.
+cache_root=${XDG_CACHE_HOME:-$HOME/.cache}
+export XDG_CACHE_HOME="$cache_root/ghostty-private"
+install -d -m 700 "$XDG_CACHE_HOME"
+
+exec /usr/bin/ghostty "$@"

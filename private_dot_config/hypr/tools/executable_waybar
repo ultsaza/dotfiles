@@ -1,0 +1,3 @@
+#!/bin/sh
+# Upstream Waybar with native Hyprland Lua IPC; system package remains installed.
+exec "$HOME/.local/share/waybar-hyprlua/bin/waybar" "$@"

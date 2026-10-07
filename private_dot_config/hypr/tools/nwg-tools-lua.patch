@@ -1,0 +1,25 @@
+diff --git a/nwg_displays/tools.py b/nwg_displays/tools.py
+index 2a4630a..cb2e8b8 100644
+--- a/nwg_displays/tools.py
++++ b/nwg_displays/tools.py
+@@ -90,6 +90,20 @@ def get_config():
+
+
+ def hyprctl(cmd):
++    # Lua dispatch expects a dispatcher constructor, not hyprlang arguments.
++    if cmd.startswith("dispatch dpms "):
++        parts = cmd.split(maxsplit=3)
++        if len(parts) >= 3 and parts[2] in ("on", "off", "toggle"):
++            try:
++                status = json.loads(hyprctl("j/status"))
++            except json.JSONDecodeError:  # Older Hyprland may not support status.
++                status = {}
++            if isinstance(status, dict) and status.get("configProvider") == "lua":
++                fields = [f"action = {json.dumps(parts[2])}"]
++                if len(parts) == 4:
++                    fields.append(f"monitor = {json.dumps(parts[3], ensure_ascii=False)}")
++                cmd = "dispatch hl.dsp.dpms({" + ", ".join(fields) + "})"
++
+     # /tmp/hypr moved to $XDG_RUNTIME_DIR/hypr in #5788
+     xdg_runtime_dir = os.getenv("XDG_RUNTIME_DIR")
+     hypr_dir = f"{xdg_runtime_dir}/hypr" if xdg_runtime_dir and os.path.isdir(

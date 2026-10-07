@@ -1,8 +1,44 @@
-{{- if ne .chezmoi.os "darwin" }}
-Library/Application Support/com.mitchellh.ghostty/config
+# Repository files are not dotfiles.
+README.md
+Brewfile
+docs
+docs/**
+scripts
+scripts/**
+tests
+tests/**
+.github
+.github/**
+
+{{ if ne .chezmoi.os "darwin" }}
+Library
+Library/**
 .aerospace.toml
 .config/aerospace
-{{- end }}
-{{- if ne .chezmoi.os "linux" }}
+.config/aerospace/**
+{{ end }}
+{{ if ne .chezmoi.os "linux" }}
+.config/Code
+.config/Code/**
+.config/ghostty
+.config/ghostty/**
 .config/hypr
-{{- end }}
+.config/hypr/**
+.config/wireplumber
+.config/wireplumber/**
+.config/waybar
+.config/waybar/**
+.config/rofi
+.config/rofi/**
+.config/swaync
+.config/swaync/**
+.config/wallust
+.config/wallust/**
+.config/wlogout
+.config/wlogout/**
+.local/bin/ghostty-launch
+.local/bin/zoom-launch
+.local/bin/hyprland-share-picker-safe
+.local/share/applications
+.local/share/applications/**
+{{ end }}

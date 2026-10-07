@@ -1,0 +1,23 @@
+# macOS dependencies for the configurations in this repository.
+tap "nikitabobko/tap"
+
+brew "chezmoi"
+brew "git"
+brew "git-lfs"
+brew "neovim"
+brew "lazygit"
+brew "jq"
+brew "ripgrep"
+brew "direnv"
+brew "zoxide"
+brew "lsd"
+brew "fastfetch"
+brew "powerlevel10k"
+brew "python@3.12"
+
+cask "aerospace"
+cask "ghostty"
+cask "visual-studio-code"
+cask "font-jetbrains-mono"
+cask "font-jetbrains-mono-nerd-font"
+cask "font-fantasque-sans-mono-nerd-font"

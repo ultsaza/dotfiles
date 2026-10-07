@@ -4,7 +4,8 @@
 # Note: Scripts are looking for keywords Light or Dark except for wallpapers as the are in a separate directories
 
 # Paths
-wallpaper_base_path="$HOME/Pictures/wallpapers/Dynamic-Wallpapers"
+PICTURES_DIR="$(xdg-user-dir PICTURES 2>/dev/null || echo "$HOME/Pictures")"
+wallpaper_base_path="$PICTURES_DIR/wallpapers/Dynamic-Wallpapers"
 dark_wallpapers="$wallpaper_base_path/Dark"
 light_wallpapers="$wallpaper_base_path/Light"
 hypr_config_path="$HOME/.config/hypr"
@@ -19,9 +20,14 @@ kitty_conf="$HOME/.config/kitty/kitty.conf"
 wallust_config="$HOME/.config/wallust/wallust.toml"
 pallete_dark="dark16"
 pallete_light="light16"
+qt5ct_dark="$HOME/.config/qt5ct/colors/Catppuccin-Mocha.conf"
+qt5ct_light="$HOME/.config/qt5ct/colors/Catppuccin-Latte.conf"
+qt6ct_dark="$HOME/.config/qt6ct/colors/Catppuccin-Mocha.conf"
+qt6ct_light="$HOME/.config/qt6ct/colors/Catppuccin-Latte.conf"
 
 # intial kill process
-for pid in waybar rofi swaync ags swaybg; do
+pkill -SIGUSR1 -x 'waybar|\.waybar-wrapped'
+for pid in rofi swaync ags swaybg; do
     killall -SIGUSR1 "$pid"
 done
 
@@ -43,6 +49,14 @@ else
     # Logic for Light mode
     wallpaper_path="$light_wallpapers"
 fi
+# Select Qt color scheme templates for the upcoming mode
+if [ "$next_mode" = "Dark" ]; then
+    qt5ct_color_scheme="$qt5ct_dark"
+    qt6ct_color_scheme="$qt6ct_dark"
+else
+    qt5ct_color_scheme="$qt5ct_light"
+    qt6ct_color_scheme="$qt6ct_light"
+fi
 
 # Function to update theme mode for the next cycle
 update_theme_mode() {
@@ -56,9 +70,9 @@ notify_user() {
 
 # Use sed to replace the palette setting in the wallust config file
 if [ "$next_mode" = "Dark" ]; then
-    sed -i 's/^palette = .*/palette = "'"$pallete_dark"'"/' "$wallust_config" 
+    sed -i 's/^palette = .*/palette = "'"$pallete_dark"'"/' "$wallust_config"
 else
-    sed -i 's/^palette = .*/palette = "'"$pallete_light"'"/' "$wallust_config" 
+    sed -i 's/^palette = .*/palette = "'"$pallete_light"'"/' "$wallust_config"
 fi
 
 # Function to set Waybar style
@@ -92,10 +106,10 @@ else
 fi
 
 # ags color change
-if command -v ags >/dev/null 2>&1; then    
+if command -v ags >/dev/null 2>&1; then
     if [ "$next_mode" = "Dark" ]; then
         sed -i '/@define-color noti-bg/s/rgba([0-9]*,\s*[0-9]*,\s*[0-9]*,\s*[0-9.]*);/rgba(0, 0, 0, 0.4);/' "${ags_style}"
-	    sed -i '/@define-color text-color/s/rgba([0-9]*,\s*[0-9]*,\s*[0-9]*,\s*[0-9.]*);/rgba(255, 255, 255, 0.7);/' "${ags_style}" 
+	    sed -i '/@define-color text-color/s/rgba([0-9]*,\s*[0-9]*,\s*[0-9]*,\s*[0-9.]*);/rgba(255, 255, 255, 0.7);/' "${ags_style}"
 	    sed -i '/@define-color noti-bg-alt/s/#.*;/#111111;/' "${ags_style}"
     else
         sed -i '/@define-color noti-bg/s/rgba([0-9]*,\s*[0-9]*,\s*[0-9]*,\s*[0-9.]*);/rgba(255, 255, 255, 0.4);/' "${ags_style}"
@@ -212,7 +226,7 @@ set_custom_gtk_theme() {
         fi
         echo "Selected icon theme for $mode mode: $selected_icon"
         gsettings set $icon_setting "$selected_icon"
-        
+
         ## QT5ct icon_theme
         sed -i "s|^icon_theme=.*$|icon_theme=$selected_icon|" "$HOME/.config/qt5ct/qt5ct.conf"
         sed -i "s|^icon_theme=.*$|icon_theme=$selected_icon|" "$HOME/.config/qt6ct/qt6ct.conf"
@@ -239,16 +253,16 @@ ${SCRIPTSDIR}/WallustSwww.sh &&
 
 sleep 2
 # kill process
-for pid1 in waybar rofi swaync ags swaybg; do
+pkill -x 'waybar|\.waybar-wrapped'
+for pid1 in rofi swaync ags swaybg; do
     killall "$pid1"
 done
 
 sleep 1
-${SCRIPTSDIR}/Refresh.sh 
+${SCRIPTSDIR}/Refresh.sh
 
 sleep 0.5
-# Display notifications for theme and icon changes 
+# Display notifications for theme and icon changes
 notify-send -u low -i "$notif" " Themes switched to:" " $next_mode Mode"
 
 exit 0
-

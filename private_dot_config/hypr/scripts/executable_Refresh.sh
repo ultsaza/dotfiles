@@ -23,7 +23,7 @@ for _prs in "${_ps[@]}"; do
 done
 
 # added since wallust sometimes not applying
-killall -SIGUSR2 waybar
+pkill -SIGUSR2 -x 'waybar|\.waybar-wrapped'
 # Added sleep for GameMode causing multiple waybar
 sleep 0.1
 

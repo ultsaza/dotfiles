@@ -1,0 +1,3 @@
+#!/bin/sh
+# v0.4.4 plus the documented Lua DPMS compatibility patch.
+exec "$HOME/.local/share/nwg-displays-0.4.4/bin/nwg-displays" "$@"

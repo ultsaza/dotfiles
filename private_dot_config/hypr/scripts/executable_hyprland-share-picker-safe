@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# Isolate fontconfig's cache for the Qt screen-share picker.
+cache_root=${XDG_CACHE_HOME:-$HOME/.cache}
+export XDG_CACHE_HOME="$cache_root/xdph-picker-private"
+install -d -m 700 "$XDG_CACHE_HOME"
+exec /usr/bin/hyprland-share-picker "$@"

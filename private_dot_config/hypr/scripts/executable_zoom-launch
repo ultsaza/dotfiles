@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cache_root=${XDG_CACHE_HOME:-$HOME/.cache}
+export XDG_CACHE_HOME="$cache_root/zoom-workplace-private"
+install -d -m 700 "$XDG_CACHE_HOME"
+unset QT_QPA_PLATFORMTHEME QT_QUICK_CONTROLS_STYLE QT_STYLE_OVERRIDE
+if [[ -n ${HYPRLAND_INSTANCE_SIGNATURE:-} && -n ${WAYLAND_DISPLAY:-} ]]; then
+  export XDG_SESSION_TYPE=wayland
+fi
+
+if [[ -n ${HYPRLAND_INSTANCE_SIGNATURE:-} ]] &&
+   clients=$(/usr/bin/hyprctl clients -j 2>/dev/null) &&
+   /usr/bin/jq -e 'type == "array"' >/dev/null <<<"$clients"; then
+  zoom_window=$(/usr/bin/jq -r '[.[] | select((.class | ascii_downcase) == "zoom" and .mapped == true) | .address][0] // ""' <<<"$clients")
+  if [[ -n $zoom_window ]]; then
+    if (( $# == 0 )) && [[ $zoom_window =~ ^0x[0-9a-fA-F]+$ ]]; then
+      /usr/bin/hyprctl dispatch "hl.dsp.focus({ window = \"address:$zoom_window\" })" >/dev/null && exit 0
+    fi
+  else
+    while read -r pid; do
+      [[ -n $pid ]] || continue
+      [[ $(readlink -f "/proc/$pid/exe" 2>/dev/null) == /opt/zoom/zoom ]] || continue
+      kill -TERM "$pid"
+      for ((attempt = 0; attempt < 50; attempt++)); do
+        [[ -e /proc/$pid/exe ]] || break
+        sleep 0.1
+      done
+    done < <(/usr/bin/pgrep -u "$(id -u)" -x zoom || true)
+  fi
+fi
+
+if [[ -n ${HYPRLAND_INSTANCE_SIGNATURE:-} ]] && (( $# == 0 )); then
+  /usr/bin/zoom &
+  launcher_pid=$!
+  for ((attempt = 0; attempt < 25; attempt++)); do
+    clients=$(/usr/bin/hyprctl clients -j 2>/dev/null) || break
+    zoom_window=$(/usr/bin/jq -r '[.[] | select((.class | ascii_downcase) == "zoom" and .mapped == true) | .address][0] // ""' <<<"$clients")
+    if [[ $zoom_window =~ ^0x[0-9a-fA-F]+$ ]]; then
+      /usr/bin/hyprctl dispatch "hl.dsp.focus({ window = \"address:$zoom_window\" })" >/dev/null
+      break
+    fi
+    sleep 0.2
+  done
+  wait "$launcher_pid"
+else
+  exec /usr/bin/zoom "$@"
+fi

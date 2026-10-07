@@ -54,7 +54,7 @@ main() {
 
     case "$choice" in
         "no panel")
-            pgrep -x "waybar" && pkill waybar || true
+            pkill -x 'waybar|\.waybar-wrapped' || true
             ;;
         *)
             apply_config "$choice"

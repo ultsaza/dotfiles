@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
+# Moving this directory away would break required Lua modules.
+if [[ -f "$HOME/.config/hypr/hyprland.lua" ]]; then
+  notify-send "Hyprland Lua" "UserConfigsの全置換は保護されています。バックアップとの差分を確認してください。"
+  exit 0
+fi
 # /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
 # Script to manage UserConfigs and UserConfigsBak
 

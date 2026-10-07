@@ -1,0 +1,21 @@
+-- Migrated from UserConfigs/WindowRules.conf; edit this Lua file going forward.
+local v = require("variables")
+
+hl.window_rule({ ["opacity"] = "0.8 0.7", ["match"] = { ["tag"] = "terminal*" } })
+hl.window_rule({ ["opacity"] = "0.8", ["match"] = { ["class"] = "^(code)$" } })
+hl.window_rule({ ["opacity"] = "0.9 0.7", ["match"] = { ["tag"] = "browser*" } })
+hl.window_rule({ ["opacity"] = "0.9", ["match"] = { ["class"] = "^(code)$" } })
+-- Snap Firefox advertises class "firefox_firefox", which the default browser regex misses.
+hl.window_rule({ ["tag"] = "+browser", ["match"] = { ["class"] = "^(firefox_firefox)$" } })
+hl.window_rule({ ["tag"] = "+projects", ["match"] = { ["class"] = "^(VSCode|code-url-handler)$" } })
+hl.window_rule({ ["tag"] = "+im", ["match"] = { ["class"] = "^([Ww]aydroid.*)$" } })
+hl.window_rule({ ["workspace"] = "1", ["match"] = { ["tag"] = "email*" } })
+hl.window_rule({ ["workspace"] = "2", ["match"] = { ["tag"] = "browser*" } })
+hl.window_rule({ ["workspace"] = "4 silent", ["match"] = { ["tag"] = "screenshare*" } })
+hl.window_rule({ ["workspace"] = "5", ["match"] = { ["tag"] = "gamestore*" } })
+hl.window_rule({ ["workspace"] = "6 silent", ["match"] = { ["class"] = "^(virt-manager)$" } })
+hl.window_rule({ ["workspace"] = "6 silent", ["match"] = { ["class"] = "^(.virt-manager-wrapped)$" } })
+hl.window_rule({ ["workspace"] = "7", ["match"] = { ["tag"] = "im*" } })
+hl.window_rule({ ["workspace"] = "7", ["match"] = { ["class"] = "^([Ww]aydroid.*)$" } })
+hl.window_rule({ ["workspace"] = "8", ["match"] = { ["tag"] = "games*" } })
+hl.window_rule({ ["workspace"] = "9 silent", ["match"] = { ["tag"] = "multimedia*" } })

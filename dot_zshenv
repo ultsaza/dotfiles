@@ -1,0 +1,5 @@
+# Keep non-interactive shells usable even when optional tools are absent.
+typeset -U path PATH
+path=("$HOME/.local/bin" "$HOME/.codon/bin" "$HOME/go/bin" "$HOME/.moon/bin" "$HOME/.kimi-code/bin" $path)
+[[ -r "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
+[[ -r "$HOME/.vite-plus/env" ]] && source "$HOME/.vite-plus/env"

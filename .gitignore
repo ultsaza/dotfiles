@@ -1,2 +1,13 @@
 # Neovim
 private_dot_config/nvim/plugin/
+
+# Local state and credentials
+.DS_Store
+__pycache__/
+*.pyc
+.env
+.env.*
+*.local
+*.bak
+*.bak.*
+.worktrees/
