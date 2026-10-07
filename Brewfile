@@ -1,6 +1,4 @@
 # macOS dependencies for the configurations in this repository.
-tap "nikitabobko/tap"
-
 brew "chezmoi"
 brew "git"
 brew "git-lfs"
@@ -15,7 +13,6 @@ brew "fastfetch"
 brew "powerlevel10k"
 brew "python@3.12"
 
-cask "aerospace"
 cask "ghostty"
 cask "karabiner-elements"
 cask "visual-studio-code"

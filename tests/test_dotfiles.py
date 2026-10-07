@@ -105,6 +105,7 @@ class DotfilesTest(unittest.TestCase):
                 self.assertTrue((home / ".config/wireplumber").is_dir())
                 self.assertTrue((home / ".local/share/applications/Zoom.desktop").is_file())
                 self.assertFalse((home / ".aerospace.toml").exists())
+                self.assertFalse((home / ".config/aerospace").exists())
                 self.assertFalse((home / ".config/karabiner").exists())
                 self.assertFalse((home / "Library").exists())
                 hypr = home / ".config/hypr"
@@ -112,8 +113,8 @@ class DotfilesTest(unittest.TestCase):
                     for module in re.findall(r'require\("([^"]+)"\)', script.read_text()):
                         self.assertTrue((hypr / f"{module}.lua").is_file(), module)
             else:
-                aerospace = tomllib.loads((home / ".aerospace.toml").read_text())
-                self.assertFalse(aerospace["start-at-login"])
+                self.assertFalse((home / ".aerospace.toml").exists())
+                self.assertFalse((home / ".config/aerospace").exists())
                 self.assertTrue((home / "Library/Application Support/com.mitchellh.ghostty/config").is_file())
                 karabiner_file = home / ".config/karabiner/karabiner.json"
                 karabiner = json.loads(karabiner_file.read_text())
@@ -127,9 +128,6 @@ class DotfilesTest(unittest.TestCase):
                     self.assertFalse((home / ".config" / name).exists(), name)
                 self.assertFalse((home / ".local/bin/zoom-launch").exists())
                 self.assertFalse((home / ".local/share/applications").exists())
-                binding = aerospace["mode"]["main"]["binding"]
-                self.assertIn(f'"{home}/.config/aerospace/make-2x2.sh"',
-                              binding["cmd-ctrl-alt-shift-g"])
 
             claude = json.loads((home / ".claude/settings.json").read_text())
             codex = tomllib.loads((home / ".codex/config.toml").read_text())

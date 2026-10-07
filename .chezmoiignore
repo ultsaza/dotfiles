@@ -13,9 +13,6 @@ tests/**
 {{ if ne .chezmoi.os "darwin" }}
 Library
 Library/**
-.aerospace.toml
-.config/aerospace
-.config/aerospace/**
 .config/karabiner
 .config/karabiner/**
 {{ end }}
