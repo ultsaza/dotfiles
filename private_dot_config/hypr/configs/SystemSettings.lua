@@ -1,4 +1,4 @@
--- Migrated from configs/SystemSettings.conf; edit this Lua file going forward.
+-- Native Lua configuration: configs/SystemSettings.lua.
 local v = require("variables")
 
 -- /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  #
@@ -7,7 +7,7 @@ local v = require("variables")
 -- if the upgrade.sh is used.
 
 -- refer to Hyprland wiki for more info https://wiki.hyprland.org/Configuring/Variables/
--- NOTE: some settings are in ~/.config/hypr/UserConfigs/UserDecorAnimations.conf
+-- NOTE: some settings are in ~/.config/hypr/UserConfigs/UserDecorations.lua / UserAnimations.lua
 
 v.scriptsDir = v.HOME .. "/.config/hypr/scripts"
 

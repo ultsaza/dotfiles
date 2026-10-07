@@ -1,7 +1,7 @@
--- Migrated from UserConfigs/Laptops.conf; edit this Lua file going forward.
+-- Native Lua configuration: UserConfigs/Laptops.lua.
 local v = require("variables")
 
 -- /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  #
 -- User additions for laptop-specific config.
--- Defaults are in ~/.config/hypr/configs/Laptops.conf
+-- Defaults are in ~/.config/hypr/configs/Laptops.lua
 -- (currently no user overrides)

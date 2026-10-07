@@ -1,4 +1,4 @@
--- Migrated from workspaces.conf; edit this Lua file going forward.
+-- Native Lua configuration: workspaces.lua.
 local v = require("variables")
 
 -- /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  #

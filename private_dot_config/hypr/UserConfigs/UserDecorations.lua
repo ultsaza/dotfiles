@@ -1,4 +1,4 @@
--- Migrated from UserConfigs/UserDecorations.conf; edit this Lua file going forward.
+-- Native Lua configuration: UserConfigs/UserDecorations.lua.
 local v = require("variables")
 
 -- /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  #

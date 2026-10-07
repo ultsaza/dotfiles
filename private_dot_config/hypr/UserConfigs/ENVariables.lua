@@ -1,8 +1,8 @@
--- Migrated from UserConfigs/ENVariables.conf; edit this Lua file going forward.
+-- Native Lua configuration: UserConfigs/ENVariables.lua.
 local v = require("variables")
 
 -- /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  #
--- User-only env additions. Defaults are in ~/.config/hypr/configs/ENVariables.conf
+-- User-only env additions. Defaults are in ~/.config/hypr/configs/ENVariables.lua
 -- Only add values here that differ from or extend the defaults.
 
 -- Hyprcursor (modern Wayland cursor protocol)

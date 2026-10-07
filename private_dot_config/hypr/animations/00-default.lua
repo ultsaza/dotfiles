@@ -1,4 +1,4 @@
--- Migrated from animations/00-default.conf; edit this Lua file going forward.
+-- Native Lua configuration: animations/00-default.lua.
 local v = require("variables")
 
 -- /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  #

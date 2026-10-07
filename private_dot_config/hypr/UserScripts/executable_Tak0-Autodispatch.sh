@@ -5,8 +5,8 @@
 #    Example:
 #    ./dispatch.sh discord 2
 #
-# 2) Call from Hyprland config (in hyprland.conf file):
-#    exec-once = /path/to/dispatch.sh <application_command> <target_workspace_number>
+# 2) Call from Hyprland config (in hyprland.lua file):
+#    require("startup")("/path/to/dispatch.sh <application_command> <target_workspace_number>")
 #
 # Logs are saved in dispatch.log file next to the script.
 # If the window doesn't appear or is dispatched incorrectly — info will be there.
@@ -21,8 +21,8 @@
 #    Наприклад:
 #    ./dispatch.sh discord 2
 #
-# 2) Виклик з конфігурації Hyprland (у файлі hyprland.conf):
-#    exec-once = /path/to/dispatch.sh <application_command> <target_workspace_number>
+# 2) Виклик з конфігурації Hyprland (у файлі hyprland.lua):
+#    require("startup")("/path/to/dispatch.sh <application_command> <target_workspace_number>")
 #
 # Логи зберігаються у файлі dispatch.log поруч зі скриптом.
 # Якщо вікно не з'явилось або неправильно диспатчилось — інформація там.

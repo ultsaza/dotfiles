@@ -1,4 +1,4 @@
--- Migrated from hyprland.conf; edit this Lua file going forward.
+-- Native Lua configuration: hyprland.lua.
 local v = require("variables")
 
 hypr_vars = v -- Readable by settings helpers through hyprctl eval.

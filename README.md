@@ -44,11 +44,11 @@ chezmoi apply
 bash "$(chezmoi source-path)/scripts/install-vscode-extensions.sh"
 ```
 
-Hyprlandの現行設定はLua版です。取り込み元ではHyprland 0.56.2を使用しています。Lua設定を読み込めるHyprlandと、`hyprctl`のLua IPCに対応するWaybarなどを用意してください。移行前の`.conf`は周辺ツールが参照するため併存しますが、編集の中心は`.lua`です。
+Hyprlandは[ultsaza/hyprの`v0.55+`ブランチ](https://github.com/ultsaza/hypr/tree/v0.55%2B)を参照したLua専用構成です。参照コミットは`55ea356e35b6c14f1885f8068a016ee325da3081`で、Hyprland 0.56.2を基準にしています。Lua設定を読み込めるHyprlandと、`hyprctl`のLua IPCに対応するWaybarなどを用意してください。旧Hyprlandの`.conf`と無効化済みコードは管理対象から除き、Hypridle／Hyprlock／ポータル／Qt用の`.conf`とHyprlockが読む配色ファイルは維持します。参照元とdotfiles側で保持する差分は[docs/hypr-source.md](docs/hypr-source.md)に記載しています。
 
 周辺機能にはWaybar、Rofi、SwayNC、wallust、wlogout、swww、hypridle／hyprlock、kitty、Thunar、wl-clipboard／cliphist、grim／slurp／swappy、PipeWire／WirePlumber、NetworkManager、Polkit、fcitx5／Mozcなどを使用します。Quickshellのoverview、AGS、壁紙画像、各アプリのバイナリは別途用意してください。
 
-`~/.config/hypr/monitors.lua`と`monitors.conf`は現在の2画面配置を保存しています。適用前に自分の出力名、解像度、位置へ変更してください。ディスプレイ設定ツールを使う場合も、Lua側が更新されることを確認してください。
+`~/.config/hypr/monitors.lua`は現在の2画面配置を保存しています。適用前に自分の出力名、解像度、位置へ変更してください。ディスプレイ設定ツールを使う場合も、Lua側が更新されることを確認してください。Hyprlandの既定エディターは参照元と同じ`nvim`です。
 
 Ghostty／Zoom／画面共有ピッカーは専用のFontconfigキャッシュを使います。`~/.local/bin`の起動リンクから利用でき、Zoomのアプリ一覧用エントリも配置します。XDPHは`force_shm`と専用ピッカーを選択します。Zoomの実行ファイルは`/usr/bin/zoom`、Ghosttyは`/usr/bin/ghostty`を前提とするLinux向け設定です。
 
@@ -58,7 +58,7 @@ Ghostty／Zoom／画面共有ピッカーは専用のFontconfigキャッシュ�
 
 APIキー、ログイン情報、シェル履歴、顧客データ、Codexのプロジェクト信頼設定、ローカルのフックやプラグインキャッシュパスは管理しません。
 
-Zshのローカル設定は`~/.zshrc.local`へ置きます。VPNやSSHの接続先、認証情報、追加のエイリアスをここに記載できます。このファイルはGitにもchezmoiの管理対象にも入れません。Oh My Zshと追加プラグインは導入済みのものだけを読み込み、未導入でもシェルを起動できます。
+Zshのローカル設定は`~/.zshrc.local`へ置きます。VPNやSSHの接続先、認証情報、追加のエイリアスをここに記載できます。このファイルはGitにもchezmoiの管理対象にも入れません。Neovimは既存の`PATH`から解決し、LinuxのJavaインストール先を固定しません。独自の導入先や`JAVA_HOME`が必要な場合は`~/.zshrc.local`へ設定します。macOSでは`/usr/libexec/java_home`で導入済みJDKを検出します。Oh My Zshと追加プラグインは導入済みのものだけを読み込み、未導入でもシェルを起動できます。
 
 Claude CodeとCodexの設定は現在のモデル／UIの好みを保存しています。APIキーをテンプレートでJSONやTOMLへ書き出しません。接続先やローカルのフックは端末ごとに追加し、再適用時には`chezmoi diff`で変更を確認してください。Codexの設定項目は[公式リファレンス](https://developers.openai.com/codex/config-reference/)を参照してください。
 

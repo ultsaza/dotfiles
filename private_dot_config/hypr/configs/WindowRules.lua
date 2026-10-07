@@ -1,4 +1,4 @@
--- Migrated from configs/WindowRules.conf; edit this Lua file going forward.
+-- Native Lua configuration: configs/WindowRules.lua.
 local v = require("variables")
 
 -- /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  #

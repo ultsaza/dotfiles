@@ -1,8 +1,8 @@
--- Migrated from UserConfigs/Startup_Apps.conf; edit this Lua file going forward.
+-- Native Lua configuration: UserConfigs/Startup_Apps.lua.
 local v = require("variables")
 
 -- /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  #
--- User-only startup apps. Defaults are in ~/.config/hypr/configs/Startup_Apps.conf
+-- User-only startup apps. Defaults are in ~/.config/hypr/configs/Startup_Apps.lua
 -- Anything you'd otherwise add to the vendor file should go here instead.
 
 -- Propagate the Wayland session type to D-Bus/systemd-activated apps.

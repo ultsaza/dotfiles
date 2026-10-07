@@ -1,4 +1,4 @@
--- Migrated from animations/HYDE - default.conf; edit this Lua file going forward.
+-- Native Lua configuration: animations/HYDE - default.lua.
 local v = require("variables")
 
 -- /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  #

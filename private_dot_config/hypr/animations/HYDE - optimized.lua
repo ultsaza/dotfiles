@@ -1,4 +1,4 @@
--- Migrated from animations/HYDE - optimized.conf; edit this Lua file going forward.
+-- Native Lua configuration: animations/HYDE - optimized.lua.
 local v = require("variables")
 
 -- /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  #

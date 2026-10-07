@@ -1,4 +1,4 @@
--- Migrated from animations/END-4.conf; edit this Lua file going forward.
+-- Native Lua configuration: animations/END-4.lua.
 local v = require("variables")
 
 -- /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  #

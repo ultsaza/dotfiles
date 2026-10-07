@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  ##
 # For disabling touchpad.
-# Edit the Touchpad_Device on ~/.config/hypr/UserConfigs/Laptops.conf according to your system
+# Edit the Touchpad_Device on ~/.config/hypr/UserConfigs/Laptops.lua according to your system
 # use hyprctl devices to get your system touchpad device name
 # source https://github.com/hyprwm/Hyprland/discussions/4283?sort=new#discussioncomment-8648109
 
@@ -11,7 +11,7 @@ notif="$HOME/.config/swaync/images/ja.png"
 touchpad_device=$(python3 "$HOME/.config/hypr/scripts/HyprSettings.py" get Touchpad_Device)
 
 if [[ -z "$touchpad_device" ]]; then
-    notify-send -u low -i "$notif" " Touchpad" " Device name not set (check Laptops.conf)"
+    notify-send -u low -i "$notif" " Touchpad" " Device name not set (check Laptops.lua)"
     exit 1
 fi
 

@@ -1,7 +1,7 @@
--- Migrated from UserConfigs/LaptopDisplay.conf; edit this Lua file going forward.
+-- Native Lua configuration: UserConfigs/LaptopDisplay.lua.
 local v = require("variables")
 
 -- NOTE, THIS FILE IS BEING USED by disabling Laptop display monitor behaviour when closing lid.
--- See notes on Laptops.conf
+-- See notes on Laptops.lua
 
---monitor = eDP-1, preferred, auto, 1
+-- hl.monitor({ output = "eDP-1", mode = "preferred", position = "auto", scale = 1 })

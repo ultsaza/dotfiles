@@ -1,4 +1,4 @@
--- Migrated from configs/Startup_Apps.conf; edit this Lua file going forward.
+-- Native Lua configuration: configs/Startup_Apps.lua.
 local v = require("variables")
 
 -- /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  #

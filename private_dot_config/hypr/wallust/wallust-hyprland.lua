@@ -1,4 +1,4 @@
--- Migrated from wallust/wallust-hyprland.conf; edit this Lua file going forward.
+-- Native Lua configuration: wallust/wallust-hyprland.lua.
 local v = require("variables")
 
 -- /* ---- 💫 https://github.com/JaKooLit 💫 ---- */

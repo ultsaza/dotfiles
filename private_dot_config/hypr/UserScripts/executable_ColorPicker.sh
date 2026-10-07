@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Pick a color from screen with hyprpicker, copy HEX to clipboard, notify.
-# Bound to Super+Shift+C in UserKeybinds.conf.
+# Bound to Super+Shift+C in UserKeybinds.lua.
 
 set -euo pipefail
 

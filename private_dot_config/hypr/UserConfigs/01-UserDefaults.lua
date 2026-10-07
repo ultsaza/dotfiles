@@ -1,19 +1,16 @@
--- Migrated from UserConfigs/01-UserDefaults.conf; edit this Lua file going forward.
+-- Native Lua configuration: UserConfigs/01-UserDefaults.lua.
 local v = require("variables")
 
 -- /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  #
 
 -- This is a file where you put your own default apps, default search Engine etc
 
--- Set your default editor here uncomment and reboot to take effect.
--- NOTE, this will be automatically uncommented if you select neovim or vim to your default editor
---env = EDITOR,vim #default editor
+-- Default editor for the KooL Quick Settings Menu (SUPER SHIFT E)
+-- and applications launched by Hyprland.
+v.edit = "nvim"
+hl.env("EDITOR", v.edit)
 
--- Define preferred text editor for the KooL Quick Settings Menu (SUPER SHIFT E)
--- script will take the default EDITOR and nano as fallback
-v.edit = (os.getenv("EDITOR") or "nano")
-
--- These two are for UserKeybinds.conf & Waybar Modules
+-- These two are for UserKeybinds.lua & Waybar Modules
 v.term = v.HOME .. "/.config/hypr/scripts/ghostty-launch"
 v.files = "thunar"
 

@@ -1,12 +1,12 @@
--- Migrated from UserConfigs/UserKeybinds.conf; edit this Lua file going forward.
+-- Native Lua configuration: UserConfigs/UserKeybinds.lua.
 local v = require("variables")
 
 -- /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  #
--- User additions to Keybinds.conf go here.
--- Defaults live in ~/.config/hypr/configs/Keybinds.conf — duplicate them only when overriding.
+-- User additions to Keybinds.lua go here.
+-- Defaults live in ~/.config/hypr/configs/Keybinds.lua — duplicate them only when overriding.
 --
 -- Note: Variables ($mainMod, $scriptsDir, $UserScripts, $UserConfigs) are already
--- defined in configs/Keybinds.conf and can be reused here without re-declaration.
+-- defined in configs/Keybinds.lua and can be reused here without re-declaration.
 
 hl.bind(v.mainMod .. " + SHIFT + C", hl.dsp.exec_cmd(v.UserScripts .. "/ColorPicker.sh"), { ["description"] = "color picker (HEX to clipboard)" })
 

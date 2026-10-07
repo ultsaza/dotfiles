@@ -1,4 +1,4 @@
--- Migrated from UserConfigs/WindowRules.conf; edit this Lua file going forward.
+-- Native Lua configuration: UserConfigs/WindowRules.lua.
 local v = require("variables")
 
 hl.window_rule({ ["opacity"] = "0.8 0.7", ["match"] = { ["tag"] = "terminal*" } })

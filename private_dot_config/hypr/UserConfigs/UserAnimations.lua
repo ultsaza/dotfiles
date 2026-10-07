@@ -1,4 +1,4 @@
--- Migrated from UserConfigs/UserAnimations.conf; edit this Lua file going forward.
+-- Native Lua configuration: UserConfigs/UserAnimations.lua.
 local v = require("variables")
 
 -- /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  #

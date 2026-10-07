@@ -14,8 +14,6 @@ if [[ -x /usr/libexec/java_home ]]; then
   JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null) && export JAVA_HOME
 fi
 {{ else -}}
-[[ -d /opt/nvim-linux-x86_64/bin ]] && path+=(/opt/nvim-linux-x86_64/bin)
-[[ -d /usr/lib/jvm/java-25-openjdk-amd64 ]] && export JAVA_HOME=/usr/lib/jvm/java-25-openjdk-amd64
 export PNPM_HOME="$HOME/.local/share/pnpm"
 {{ end -}}
 path=("$PNPM_HOME" $path)

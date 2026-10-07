@@ -1,4 +1,4 @@
--- Migrated from animations/ML4W - classic.conf; edit this Lua file going forward.
+-- Native Lua configuration: animations/ML4W - classic.lua.
 local v = require("variables")
 
 -- /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  #

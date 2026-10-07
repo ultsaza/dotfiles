@@ -1,4 +1,4 @@
--- Migrated from animations/03- Disable Animation.conf; edit this Lua file going forward.
+-- Native Lua configuration: animations/03- Disable Animation.lua.
 local v = require("variables")
 
 -- /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  #

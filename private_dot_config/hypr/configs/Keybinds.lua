@@ -1,4 +1,4 @@
--- Migrated from configs/Keybinds.conf; edit this Lua file going forward.
+-- Native Lua configuration: configs/Keybinds.lua.
 local v = require("variables")
 
 -- /* ---- 💫 https://github.com/JaKooLit 💫 ---- */  #
