@@ -3,15 +3,9 @@ export ZSH="${ZSH:-$HOME/.oh-my-zsh}"
 export ZSH_AI_PROVIDER=ollama
 
 {{ if eq .chezmoi.os "darwin" -}}
-# Apple Silicon and Intel Homebrew; initialize before loading shell plugins.
-if [[ -x /opt/homebrew/bin/brew ]]; then
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-elif [[ -x /usr/local/bin/brew ]]; then
-  eval "$(/usr/local/bin/brew shellenv)"
-fi
 typeset -U fpath
 if [[ -n "${HOMEBREW_PREFIX:-}" ]]; then
-  for completion_dir in "$HOMEBREW_PREFIX/share/zsh/site-functions" "$HOMEBREW_PREFIX/share/zsh-completions"; do
+  for completion_dir in "$HOMEBREW_PREFIX/share/zsh/site-functions" "$HOMEBREW_PREFIX/share/zsh-completions" "$HOME/.local/share/zsh/site-functions"; do
     [[ -d "$completion_dir" ]] && fpath=("$completion_dir" $fpath)
   done
   unset completion_dir
@@ -82,7 +76,13 @@ command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
 export EDITOR="${EDITOR:-nvim}"
 
 export NVM_DIR="$HOME/.nvm"
-[[ -s "$NVM_DIR/nvm.sh" ]] && source "$NVM_DIR/nvm.sh"
+if [[ -s "$NVM_DIR/nvm.sh" ]]; then
+  source "$NVM_DIR/nvm.sh"
+{{ if eq .chezmoi.os "darwin" -}}
+elif [[ -n "${HOMEBREW_PREFIX:-}" && -s "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ]]; then
+  source "$HOMEBREW_PREFIX/opt/nvm/nvm.sh"
+{{ end -}}
+fi
 [[ -s "$NVM_DIR/bash_completion" ]] && source "$NVM_DIR/bash_completion"
 [[ -t 1 ]] && command -v fastfetch >/dev/null && fastfetch --show-errors
 

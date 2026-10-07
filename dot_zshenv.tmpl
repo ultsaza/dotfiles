@@ -1,0 +1,32 @@
+# Keep non-interactive shells usable even when optional tools are absent.
+{{ if eq .chezmoi.os "darwin" -}}
+# Homebrew must also be visible in non-interactive shells.
+if [[ -x /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -x /usr/local/bin/brew ]]; then
+  eval "$(/usr/local/bin/brew shellenv)"
+fi
+{{ end -}}
+typeset -U path PATH
+path=("$HOME/.nix-profile/bin" "/nix/var/nix/profiles/default/bin" "$HOME/.local/bin" "$HOME/.bun/bin" "$HOME/.codon/bin" "$HOME/go/bin" "$HOME/.moon/bin" "$HOME/.kimi-code/bin" $path)
+[[ -r "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
+[[ -r "$HOME/.vite-plus/env" ]] && source "$HOME/.vite-plus/env"
+{{ if eq .chezmoi.os "darwin" -}}
+path=("$HOME/Library/Application Support/Coursier/bin" $path)
+if [[ -n "${HOMEBREW_PREFIX:-}" ]]; then
+  for cli_dir in coreutils findutils gnu-sed gnu-tar grep gawk make; do
+    [[ -d "$HOMEBREW_PREFIX/opt/$cli_dir/libexec/gnubin" ]] && path=("$HOMEBREW_PREFIX/opt/$cli_dir/libexec/gnubin" $path)
+  done
+  for cli_dir in rustup llvm lld lldb curl gettext gnu-getopt diffutils gzip; do
+    [[ -d "$HOMEBREW_PREFIX/opt/$cli_dir/bin" ]] && path=("$HOMEBREW_PREFIX/opt/$cli_dir/bin" $path)
+  done
+  unset cli_dir
+fi
+{{ else -}}
+path=("$HOME/.local/share/coursier/bin" $path)
+{{ end -}}
+for cli_env in "$HOME/.swiftly/env.sh" "$HOME/.local/share/swiftly/env.sh"; do
+  [[ -r "$cli_env" ]] && source "$cli_env"
+done
+unset cli_env
+true

@@ -1,0 +1,30 @@
+# manager	package or installer URL	commands	architecture
+npm	@google/gemini-cli	gemini	all
+npm	vercel	vercel vc	all
+npm	http-server	http-server	all
+npm	pug-cli	pug	all
+npm	zx	zx	all
+uv	huggingface_hub	hf	all
+uv	kaggle	kaggle	all
+uv	browser-use[cli]	browser-use browser-use-tui browseruse browser bu	all
+cargo	captube	captube	all
+cargo	cargo-deb	cargo-deb	all
+cargo	wallust	wallust	all
+go	github.com/kayrus/gof5/cmd/gof5@latest	gof5	all
+cs	cs	cs	all
+cs	scala	scala	all
+cs	scalac	scalac	all
+cs	ammonite	amm	all
+cs	scalafmt	scalafmt	all
+cs	sbtn	sbtn	all
+ax	https://ax.yusuke.run/install	ax	all
+ctx	https://ctx.rs/install	ctx	all
+ntn	https://ntn.dev	ntn	all
+codon	https://exaloop.io/install.sh	codon	all
+moonbit	https://cli.moonbitlang.com/install/unix.sh	moon moonc moonfmt moonrun mooncake moondoc mooninfo moonbit-lsp	arm64
+viteplus	https://vite.plus	vp vpx vpr	all
+hermes	https://hermes-agent.nousresearch.com/install.sh	hermes	arm64
+nix	https://install.determinate.systems/nix	nix	all
+devbox	https://get.jetify.com/devbox	devbox	all
+home-manager	nixpkgs#home-manager	home-manager	all
+pokemon	https://gitlab.com/phoneybadger/pokemon-colorscripts.git	pokemon-colorscripts	all

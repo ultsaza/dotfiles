@@ -1,6 +1,6 @@
 # dotfiles
 
-chezmoiで管理するLinux／macOS用の設定です。2026-10-07時点のLinux環境を取り込み、macOSではOS固有の設定と配置先を切り替えます。
+chezmoiで管理するLinux／macOS用の設定です。2026-10-08時点のLinux環境を取り込み、macOSではOS固有の設定と配置先を切り替えます。
 
 | 設定 | Linux | macOS |
 | --- | --- | --- |
@@ -21,13 +21,15 @@ VS Codeの配置先は[公式の設定ファイル仕様](https://code.visualstu
 xcode-select --install
 brew install chezmoi
 chezmoi init https://github.com/ultsaza/dotfiles.git
-brew bundle --file="$(chezmoi source-path)/Brewfile"
+bash "$(chezmoi source-path)/scripts/install-cli-tools.sh"
 chezmoi diff
 chezmoi apply
 bash "$(chezmoi source-path)/scripts/install-vscode-extensions.sh"
 ```
 
-`Brewfile`には共通CLI、Ghostty、VS Code、Karabiner-Elements、フォントを記載しています。Apple Siliconの`/opt/homebrew`とIntelの`/usr/local`をZshで判別します。Node.js／NVMや各言語のSDKは必要に応じて別途導入してください。
+CLI導入スクリプトはBrewfileのアプリとCLIに加え、npm／uv／Cargo／Go／Coursierと公式インストーラーのツールも導入します。`gh`、AWS CLI、Docker、Node／NVM／pnpm／Bun、Rust／Go、Java／Scala、AI系CLI、画像・動画・PDF処理を含みます。Linux環境からの対応表、追加セットアップ、OS・CPUによる制約は[docs/cli-tools.md](docs/cli-tools.md)を参照してください。TeX、LLVM、JDKなども入るため、初回は大きなダウンロードになります。Nix、Devboxやパッケージ形式のアプリは管理者権限を求める場合があります。
+
+Apple Siliconの`/opt/homebrew`とIntelの`/usr/local`をZshで判別し、非対話シェルにもHomebrewを設定します。GNU版の`sed`／`find`／`grep`なども通常の名前で使えるPATHにします。インストール内容を先に確認する場合は同じスクリプトに`--plan`、導入後の不足を確認する場合は`--check`を指定します。chezmoiの適用だけではパッケージの導入を実行しません。
 
 Karabiner-ElementsにはCapsLockを`Cmd+Ctrl+Option`のHyperキー、単押しをEscapeにする設定とJISキーボード設定を保存しています。Karabiner-Elementsに必要な権限も許可してください。
 
@@ -72,7 +74,7 @@ Tab補完はOh My Zshの初期化を利用し、未導入ならZshの`compinit`�
 
 入力中に薄い文字で表示する候補は、`zsh-autosuggestions`による履歴ベースの提案です。行末で右矢印を押すと採用します。履歴は`~/.zsh_history`へ保存して複数のシェルで共有し、先頭が空白のコマンドと連続した重複は保存しません。履歴を持たない初回のシェルでは候補もありません。AIによる提案は追加の`zsh-ai`と接続先が必要で、Brewfileによる基本構成には含めません。
 
-既存のMacへこの構成を取り込む場合は、`chezmoi git pull --ff-only`、`brew bundle --file="$(chezmoi source-path)/Brewfile"`、`chezmoi diff`、`chezmoi apply`の順に実行してから新しいシェルを開きます。
+既存のMacへこの構成を取り込む場合は、`chezmoi git pull --ff-only`、`bash "$(chezmoi source-path)/scripts/install-cli-tools.sh"`、`chezmoi diff`、`chezmoi apply`の順に実行してから新しいシェルを開きます。
 
 ## 日常の更新
 

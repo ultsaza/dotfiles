@@ -204,6 +204,17 @@ class DotfilesTest(unittest.TestCase):
                     capture_output=True, text=True,
                 )
                 self.assertEqual(plugins.returncode, 0, plugins.stderr)
+                # Exercise real macOS binaries through the installed Zsh PATH.
+                cli = subprocess.run(
+                    [shell, "-dfc", 'source "$HOME/.zshenv"; source "$HOME/.zshrc"; '
+                     'gh --version && aws --version && node --version && uv --version && '
+                     'go version && rustup --version && nvm --version && '
+                     'sed --version && find --version && stat --version && '
+                     'tar --version && grep --version && awk --version && make --version'],
+                    env={"HOME": str(home), "PATH": "/usr/bin:/bin", "TERM": "dumb"},
+                    capture_output=True, text=True,
+                )
+                self.assertEqual(cli.returncode, 0, cli.stderr)
 
             # A second apply must leave the installed content unchanged.
             before = {str(p.relative_to(home)): p.read_bytes() for p in home.rglob("*")

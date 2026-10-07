@@ -29,7 +29,21 @@ jobs:
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
       - name: Install macOS validation tools
         if: runner.os == 'macOS'
-        run: brew install chezmoi neovim zsh-autosuggestions zsh-syntax-highlighting zsh-completions
+        run: |
+          brew install chezmoi neovim zsh-autosuggestions zsh-syntax-highlighting zsh-completions gh awscli node nvm uv go rustup coreutils findutils gnu-sed gnu-tar grep gawk gnu-getopt make
+      - name: Validate macOS package providers
+        if: runner.os == 'macOS'
+        run: |
+          brew bundle list --file=Brewfile
+          brew info --json=v2 --formula $(brew bundle list --formula --file=Brewfile) > /tmp/dotfiles-formulae.json
+          brew info --json=v2 --cask $(brew bundle list --cask --file=Brewfile) > /tmp/dotfiles-casks.json
+          python3 - <<'PY'
+          import json
+          for filename, key in [('/tmp/dotfiles-formulae.json', 'formulae'), ('/tmp/dotfiles-casks.json', 'casks')]:
+              for package in json.load(open(filename))[key]:
+                  assert not package['disabled'], package
+                  assert not package['deprecated'], package
+          PY
       - name: Validate isolated Linux and macOS destinations
         run: python3 -m unittest discover -s tests -v
       - name: Check whitespace
