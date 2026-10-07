@@ -16,6 +16,8 @@ Library/**
 .aerospace.toml
 .config/aerospace
 .config/aerospace/**
+.config/karabiner
+.config/karabiner/**
 {{ end }}
 {{ if ne .chezmoi.os "linux" }}
 .config/Code

@@ -1,5 +1,8 @@
 {
   "C_Cpp.default.cppStandard": "gnu++23",
+{{ if eq .chezmoi.os "darwin" }}
+  "C_Cpp.default.compilerPath": "/usr/bin/clang++",
+{{ end }}
   "[java]": {
     "editor.defaultFormatter": "redhat.java"
   },
@@ -13,6 +16,9 @@
   "editor.editContext": false,
   "editor.fontFamily": "'JetBrains Mono', 'monospace'",
   "editor.fontLigatures": true,
+{{ if eq .chezmoi.os "darwin" }}
+  "editor.fontSize": 14,
+{{ end }}
   "editor.inlineSuggest.fontFamily": "'JetBrains Mono', 'monospace'",
   "editor.lineNumbers": "relative",
   "explorer.confirmDelete": false,
@@ -61,7 +67,10 @@
   ],
   "terminal.integrated.cursorBlinking": true,
   "terminal.integrated.enableMultiLinePasteWarning": "never",
-  "terminal.integrated.fontFamily": "FantasqueSansM Nerd Font Mono",
+  "terminal.integrated.fontFamily": {{ if eq .chezmoi.os "darwin" }}"JetBrainsMono Nerd Font Mono"{{ else }}"FantasqueSansM Nerd Font Mono"{{ end }},
+{{ if eq .chezmoi.os "darwin" }}
+  "terminal.integrated.fontSize": 16,
+{{ end }}
   "terminal.integrated.fontLigatures.enabled": true,
   "vim.insertModeKeyBindings": [
     {

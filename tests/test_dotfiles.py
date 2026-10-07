@@ -86,6 +86,12 @@ class DotfilesTest(unittest.TestCase):
             self.assertEqual(tasks["tasks"][0]["command"],
                              "g++" if platform == "linux" else "clang++")
             self.assertEqual("launch" in settings, platform == "linux")
+            if platform == "darwin":
+                self.assertEqual(settings["C_Cpp.default.compilerPath"], "/usr/bin/clang++")
+                self.assertEqual(settings["terminal.integrated.fontFamily"],
+                                 "JetBrainsMono Nerd Font Mono")
+            else:
+                self.assertNotIn("C_Cpp.default.compilerPath", settings)
 
             if platform == "linux":
                 for name in ["hyprland.lua", "variables.lua", "startup.lua",
@@ -99,19 +105,29 @@ class DotfilesTest(unittest.TestCase):
                 self.assertTrue((home / ".config/wireplumber").is_dir())
                 self.assertTrue((home / ".local/share/applications/Zoom.desktop").is_file())
                 self.assertFalse((home / ".aerospace.toml").exists())
+                self.assertFalse((home / ".config/karabiner").exists())
                 self.assertFalse((home / "Library").exists())
                 hypr = home / ".config/hypr"
                 for script in hypr.rglob("*.lua"):
                     for module in re.findall(r'require\("([^"]+)"\)', script.read_text()):
                         self.assertTrue((hypr / f"{module}.lua").is_file(), module)
             else:
-                tomllib.loads((home / ".aerospace.toml").read_text())
+                aerospace = tomllib.loads((home / ".aerospace.toml").read_text())
+                self.assertFalse(aerospace["start-at-login"])
                 self.assertTrue((home / "Library/Application Support/com.mitchellh.ghostty/config").is_file())
+                karabiner_file = home / ".config/karabiner/karabiner.json"
+                karabiner = json.loads(karabiner_file.read_text())
+                self.assertEqual(stat.S_IMODE(karabiner_file.stat().st_mode), 0o600)
+                profile = karabiner["profiles"][0]
+                self.assertEqual(profile["virtual_hid_keyboard"]["keyboard_type_v2"], "jis")
+                hyper = profile["complex_modifications"]["rules"][0]["manipulators"][0]
+                self.assertEqual(hyper["from"]["key_code"], "caps_lock")
+                self.assertEqual(hyper["to_if_alone"][0]["key_code"], "escape")
                 for name in ["hypr", "wireplumber", "waybar", "rofi", "swaync", "wlogout", "wallust", "Code", "ghostty"]:
                     self.assertFalse((home / ".config" / name).exists(), name)
                 self.assertFalse((home / ".local/bin/zoom-launch").exists())
                 self.assertFalse((home / ".local/share/applications").exists())
-                binding = tomllib.loads((home / ".aerospace.toml").read_text())["mode"]["main"]["binding"]
+                binding = aerospace["mode"]["main"]["binding"]
                 self.assertIn(f'"{home}/.config/aerospace/make-2x2.sh"',
                               binding["cmd-ctrl-alt-shift-g"])
 

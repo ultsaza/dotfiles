@@ -7,7 +7,7 @@ chezmoiで管理するLinux／macOS用の設定です。2026-10-07時点のLinux
 | Zsh、Powerlevel10k、Neovim、lazygit | 共通設定 | 共通設定、Homebrewの初期化 |
 | VS Code | `~/.config/Code/User` | `~/Library/Application Support/Code/User` |
 | Ghostty | `~/.config/ghostty/config` | `~/Library/Application Support/com.mitchellh.ghostty/config` |
-| ウィンドウ管理 | HyprlandのLua設定 | AeroSpace |
+| ウィンドウ管理 | HyprlandのLua設定 | AeroSpace、Karabiner-ElementsのHyperキー |
 | デスクトップ周辺 | Waybar、Rofi、SwayNC、wallust、wlogout、WirePlumber | 配置しない |
 | Claude Code、Codex | 移植可能な個人設定 | 同じ個人設定 |
 
@@ -27,9 +27,9 @@ chezmoi apply
 bash "$(chezmoi source-path)/scripts/install-vscode-extensions.sh"
 ```
 
-`Brewfile`には共通CLI、Ghostty、VS Code、フォント、[AeroSpaceの公式tap](https://nikitabobko.github.io/AeroSpace/guide#installation)を記載しています。Apple Siliconの`/opt/homebrew`とIntelの`/usr/local`をZshで判別します。Node.js／NVMや各言語のSDKは必要に応じて別途導入してください。
+`Brewfile`には共通CLI、Ghostty、VS Code、Karabiner-Elements、フォント、[AeroSpaceの公式tap](https://nikitabobko.github.io/AeroSpace/guide#installation)を記載しています。Apple Siliconの`/opt/homebrew`とIntelの`/usr/local`をZshで判別します。Node.js／NVMや各言語のSDKは必要に応じて別途導入してください。
 
-AeroSpaceを起動し、アクセシビリティ権限を許可します。ショートカットは`Cmd+Ctrl+Option`を使うHyperキー設定です。CapsLockをHyper／単押しEscapeとして使う場合は、Karabiner-Elements側で設定してください。2×2配置スクリプトのパスはホームディレクトリに合わせて生成します。
+AeroSpaceを手動で起動し、アクセシビリティ権限を許可します。このMacに合わせてログイン時の自動起動は無効です。Karabiner-ElementsにはCapsLockを`Cmd+Ctrl+Option`のHyperキー、単押しをEscapeにする設定とJISキーボード設定を保存しています。Karabiner-Elementsに必要な権限も許可してください。2×2配置スクリプトのパスはホームディレクトリに合わせて生成します。
 
 GhosttyのmacOS用の色、透過、フォントサイズは既存の設定を引き継いでいます。壁紙を使う場合は、その端末にある画像を`background-image`で指定してください。
 
@@ -62,7 +62,7 @@ Zshのローカル設定は`~/.zshrc.local`へ置きます。VPNやSSHの接続�
 
 Claude CodeとCodexの設定は現在のモデル／UIの好みを保存しています。APIキーをテンプレートでJSONやTOMLへ書き出しません。接続先やローカルのフックは端末ごとに追加し、再適用時には`chezmoi diff`で変更を確認してください。Codexの設定項目は[公式リファレンス](https://developers.openai.com/codex/config-reference/)を参照してください。
 
-VS Code拡張は上記スクリプトを明示的に実行して導入します。失敗した拡張は表示して非ゼロ終了し、同じコマンドで再試行できます。C++ビルドはLinuxで`g++`、macOSで`clang++`を使います。保存済みのGDBデバッグ設定はLinuxだけに配置します。
+VS Code拡張は上記スクリプトを明示的に実行して導入します。失敗した拡張は表示して非ゼロ終了し、同じコマンドで再試行できます。C++ビルドはLinuxで`g++`、macOSで`clang++`を使います。macOSではC++補完にも`/usr/bin/clang++`を指定し、導入済みのJetBrainsMono Nerd Fontをターミナルで使います。保存済みのGDBデバッグ設定はLinuxだけに配置します。
 
 ## 日常の更新
 
