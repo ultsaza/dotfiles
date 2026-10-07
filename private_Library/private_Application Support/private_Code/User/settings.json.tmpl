@@ -1,1 +1,6 @@
-{{ includeTemplate "vscode/settings.json" . }}
+{{- $settings := includeTemplate "vscode/settings.darwin.json" . | fromJson -}}
+{{- $localPath := joinPath .chezmoi.homeDir ".config/dotfiles/vscode.local.json" -}}
+{{- if stat $localPath -}}
+{{- $settings = mergeOverwrite $settings (include $localPath | fromJsonc) -}}
+{{- end -}}
+{{ $settings | toPrettyJson }}

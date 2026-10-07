@@ -9,7 +9,6 @@ chezmoiで管理するLinux／macOS用の設定です。2026-10-08時点のLinux
 | Ghostty | `~/.config/ghostty/config` | `~/Library/Application Support/com.mitchellh.ghostty/config` |
 | デスクトップ・キー設定 | HyprlandのLua設定 | Karabiner-ElementsのHyperキー |
 | デスクトップ周辺 | Waybar、Rofi、SwayNC、wallust、wlogout、WirePlumber | 配置しない |
-| Claude Code、Codex | 移植可能な個人設定 | 同じ個人設定 |
 
 VS Codeの配置先は[公式の設定ファイル仕様](https://code.visualstudio.com/docs/configure/settings#_user-settingsjson-location)、OSによる除外は[chezmoiの`.chezmoiignore`](https://www.chezmoi.io/reference/special-files/chezmoiignore/)に従います。既定の`~/.config`配置を前提としています。
 
@@ -60,11 +59,15 @@ Ghostty／Zoom／画面共有ピッカーは専用のFontconfigキャッシュ�
 
 APIキー、ログイン情報、シェル履歴、顧客データ、Codexのプロジェクト信頼設定、ローカルのフックやプラグインキャッシュパスは管理しません。
 
-Zshのローカル設定は`~/.zshrc.local`へ置きます。VPNやSSHの接続先、認証情報、追加のエイリアスをここに記載できます。このファイルはGitにもchezmoiの管理対象にも入れません。Neovimは既存の`PATH`から解決し、LinuxのJavaインストール先を固定しません。独自の導入先や`JAVA_HOME`が必要な場合は`~/.zshrc.local`へ設定します。macOSでは`/usr/libexec/java_home`で導入済みJDKを検出します。Oh My Zshと追加プラグインは導入済みのものだけを読み込み、未導入でもシェルを起動できます。
+Zshのローカル設定は`~/.zshrc.local`へ置きます。VPNやSSHの接続先、認証情報、追加のエイリアスをここに記載できます。このファイルはGitにもchezmoiの管理対象にも入れません。共通の`ssh-mini`エイリアスは`code --remote ssh-remote+mini`を実行します。接続先は各端末の`~/.ssh/config`で定義し、SSH設定・鍵は管理対象から除外します。Neovimは既存の`PATH`から解決し、LinuxのJavaインストール先を固定しません。独自の導入先や`JAVA_HOME`が必要な場合は`~/.zshrc.local`へ設定します。macOSでは既存の`JAVA_HOME`を優先し、未設定の場合に`/usr/libexec/java_home`で導入済みJDKを検出します。Oh My Zshと追加プラグインは導入済みのものだけを読み込み、未導入でもシェルを起動できます。
 
-Claude CodeとCodexの設定は現在のモデル／UIの好みを保存しています。APIキーをテンプレートでJSONやTOMLへ書き出しません。接続先やローカルのフックは端末ごとに追加し、再適用時には`chezmoi diff`で変更を確認してください。Codexの設定項目は[公式リファレンス](https://developers.openai.com/codex/config-reference/)を参照してください。
+Claude CodeとCodexの設定ディレクトリ（`~/.claude`、`~/.codex`）はchezmoiの管理対象から除外しています。モデル／UIの好み、APIキー、プロジェクト信頼設定、フック、プラグインは各端末で管理します。以前の管理対象から外しても、端末にある設定ファイルは削除しません。
 
-VS Code拡張は上記スクリプトを明示的に実行して導入します。失敗した拡張は表示して非ゼロ終了し、同じコマンドで再試行できます。C++ビルドはLinuxで`g++`、macOSで`clang++`を使います。macOSではC++補完にも`/usr/bin/clang++`を指定し、導入済みのJetBrainsMono Nerd Fontをターミナルで使います。保存済みのGDBデバッグ設定はLinuxだけに配置します。
+VS CodeのmacOS設定・キーバインドと共通の拡張一覧は、2026-10-08時点のMacで使っている構成を保存しています。Linuxの設定・キーバインドは別テンプレートです。拡張は上記スクリプトを明示的に実行して導入します。失敗した拡張は表示して非ゼロ終了し、同じコマンドで再試行できます。C++ビルドタスクはLinuxで`g++`、macOSで`clang++`を使います。macOSのC++補完の既定値は`/usr/bin/clang++`です。導入済みのJetBrainsMono Nerd Fontをターミナルで使い、保存済みのGDBデバッグ設定はLinuxだけに配置します。
+
+Mac固有のVS Code設定は`~/.config/dotfiles/vscode.local.json`へ保存します。JSON／JSONC形式で、macOS設定へ重ねてローカルの値を優先します。このファイルはGitにもchezmoiの管理対象にも入りません。既存の`remote.SSH.*`や独自の`C_Cpp.default.compilerPath`をここへ移しておけば、再適用してもその端末の接続先・コンパイラー設定を保持できます。
+
+`~/dotfiles`を適用元にする場合は、`~/.config/chezmoi/chezmoi.toml`で`sourceDir = "/絶対パス/dotfiles"`を指定します。`chezmoi source-path`で参照先を確認してから適用してください。
 
 ## シェルの配色と補完
 
@@ -107,4 +110,4 @@ cd "$(chezmoi source-path)"
 python3 -m unittest discover -s tests -v
 ```
 
-Linux、macOS arm64／amd64の設定を空白入りの一時ホームへ実際に展開し、配置先、OS固有ファイルの除外、シェル起動、JSON／TOML、起動リンク、再適用の安定性を確認します。疑似端末でTabキーを入力し、`git --ver`から`git --version`への引数補完と履歴保存も確認します。GitHub ActionsではUbuntuとmacOSで実行し、macOSでは実際のHomebrewプラグインの読み込みも確認します。Macでローカルテストを実行する場合もBrewfileのプラグインを導入してください。テストは実際のホームへ適用せず、拡張のインストールやデスクトップの再起動も行いません。GUIアプリの実動作と権限設定は各端末で確認してください。
+Linux、macOS arm64／amd64の設定を空白入りの一時ホームへ実際に展開し、配置先、OS固有ファイルの除外、シェル起動、JSON、起動リンク、再適用の安定性を確認します。既存のSSH・Claude・Codex設定の保持と、Mac固有のVS Code設定の優先も検証します。疑似端末でTabキーを入力し、`git --ver`から`git --version`への引数補完と履歴保存も確認します。GitHub ActionsではUbuntuとmacOSで実行し、macOSでは実際のHomebrewプラグインの読み込みも確認します。Macでローカルテストを実行する場合もBrewfileのプラグインを導入してください。テストは実際のホームへ適用せず、拡張のインストールやデスクトップの再起動も行いません。GUIアプリの実動作と権限設定は各端末で確認してください。

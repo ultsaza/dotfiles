@@ -11,7 +11,7 @@ if [[ -n "${HOMEBREW_PREFIX:-}" ]]; then
   unset completion_dir
 fi
 export PNPM_HOME="$HOME/Library/pnpm"
-if [[ -x /usr/libexec/java_home ]]; then
+if [[ -z "${JAVA_HOME:-}" && -x /usr/libexec/java_home ]]; then
   JAVA_HOME=$(/usr/libexec/java_home 2>/dev/null) && export JAVA_HOME
 fi
 {{ else -}}
@@ -70,6 +70,9 @@ fi
 alias l='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
+
+# Resolve the connection details from this machine's SSH configuration.
+alias ssh-mini='code --remote ssh-remote+mini'
 
 command -v direnv >/dev/null && eval "$(direnv hook zsh)"
 command -v zoxide >/dev/null && eval "$(zoxide init zsh)"

@@ -11,6 +11,7 @@ brew "mercurial"
 brew "neovim"
 brew "helix"
 brew "lazygit"
+brew "git-delta" # Pager configured by lazygit.
 brew "jq"
 brew "ripgrep"
 brew "fd"

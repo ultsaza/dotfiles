@@ -1,0 +1,177 @@
+{
+  "C_Cpp.loggingLevel": "Warning",
+  "[cpp]": {
+    "editor.semanticHighlighting.enabled": true,
+    "editor.suggest.insertMode": "replace",
+    "editor.wordBasedSuggestions": "off"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
+  },
+  "[python]": {
+    "diffEditor.ignoreTrimWhitespace": true,
+    "editor.formatOnType": true
+  },
+  "atcoder-commiter.username": "ult_saza",
+  "chat.viewSessions.orientation": "stacked",
+  "cmake.configureOnOpen": true,
+  "cmake.pinnedCommands": [
+    "workbench.action.tasks.configureTaskRunner",
+    "workbench.action.tasks.runTask"
+  ],
+  "code-runner.executorMap": {
+    "cpp": "cd $dir && clang++ $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt"
+  },
+  "code-runner.runInTerminal": true,
+  "dataWrangler.columnInsights.displayOnOpen": false,
+  "dataWrangler.experiments.copilot.enabled": false,
+  "database-client.autoSync": true,
+  "diffEditor.hideUnchangedRegions.enabled": true,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "docker.extension.dockerEngineAvailabilityPrompt": false,
+  "docker.extension.enableComposeLanguageServer": false,
+  "editor.cursorBlinking": "phase",
+  "editor.fontFamily": "'JetBrains Mono', Monaco, 'Courier New', monospace",
+  "editor.fontLigatures": true,
+  "editor.fontSize": 14,
+  "editor.inlayHints.enabled": "off",
+  "editor.inlayHints.fontFamily": "'system-ui'",
+  "editor.inlayHints.fontSize": 12,
+  "editor.lineNumbers": "relative",
+  "explorer.confirmDelete": false,
+  "extensions.experimental.affinity": {
+    "asvetliakov.vscode-neovim": 1
+  },
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "files.autoSave": "onFocusChange",
+  "files.watcherExclude": {
+    "**/.bloop": true,
+    "**/.metals": true
+  },
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "git.ignoreRebaseWarning": true,
+  "git.openRepositoryInParentFolders": "never",
+  "git.suggestSmartCommit": false,
+  "github.copilot.advanced": {},
+  "github.copilot.editor.enableAutoCompletions": true,
+  "github.copilot.enable": {
+    "*": true,
+    "markdown": true,
+    "plaintext": false,
+    "scminput": false
+  },
+  "github.copilot.nextEditSuggestions.enabled": false,
+  "githubPullRequests.createOnPublishBranch": "never",
+  "githubPullRequests.pullBranch": "never",
+  "go.toolsManagement.autoUpdate": true,
+  "interactiveWindow.executeWithShiftEnter": true,
+  "jupyter.askForKernelRestart": false,
+  "latex-workshop.chktex.enabled": false,
+  "latex-workshop.latex.autoBuild.run": "onSave",
+  "latex-workshop.latex.autoClean.run": "onBuilt",
+  "latex-workshop.latex.clean.enabled": true,
+  "latex-workshop.latex.clean.fileTypes": [
+    "*.aux",
+    "*.bbl",
+    "*.blg",
+    "*.idx",
+    "*.ind",
+    "*.lof",
+    "*.lot",
+    "*.out",
+    "*.toc",
+    "*.acn",
+    "*.acr",
+    "*.alg",
+    "*.glg",
+    "*.glo",
+    "*.gls",
+    "*.ist",
+    "*.fls",
+    "*.log",
+    "*.fdb_latexmk",
+    "*.synctex.gz",
+    "_minted*",
+    "*.nav",
+    "*.snm",
+    "*.vrb"
+  ],
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "ptex2pdf",
+      "tools": [
+        "ptex2pdf",
+        "ptex2pdf"
+      ]
+    }
+  ],
+  "latex-workshop.latex.tools": [
+    {
+      "args": [
+        "-l",
+        "-interaction=nonstopmode",
+        "-ot",
+        "-kanji=utf8 -synctex=1 -interaction=nonstopmode -shell-escape",
+        "%DOCFILE%.tex"
+      ],
+      "command": "ptex2pdf",
+      "name": "ptex2pdf"
+    }
+  ],
+  "latex-workshop.view.pdf.viewer": "tab",
+  "launch": {
+    "compounds": [],
+    "configurations": []
+  },
+  "markdown-preview-github-styles.colorTheme": "system",
+  "markdown-preview-github-styles.lightTheme": "dark",
+  "notebook.lineNumbers": "on",
+  "python.analysis.diagnosticSeverityOverrides": {},
+  "python.analysis.typeEvaluation.strictDictionaryInference": true,
+  "python.analysis.typeEvaluation.strictListInference": true,
+  "python.analysis.typeEvaluation.strictSetInference": true,
+  "python.createEnvironment.trigger": "off",
+  "ruff.importStrategy": "useBundled",
+  "security.workspace.trust.untrustedFiles": "open",
+  "settingsSync.ignoredSettings": [
+    "-C_Cpp.default.compilerPath"
+  ],
+  "tabnine.experimentalAutoImports": true,
+  "terminal.integrated.enableMultiLinePasteWarning": "never",
+  "terminal.integrated.fontFamily": "'JetBrainsMono Nerd Font Mono'",
+  "terminal.integrated.fontLigatures": true,
+  "terminal.integrated.fontSize": 16,
+  "terminal.integrated.gpuAcceleration": "off",
+  "vim.easymotion": true,
+  "vim.insertModeKeyBindings": [
+    {
+      "after": [
+        "<Esc>"
+      ],
+      "before": [
+        "j",
+        "k"
+      ]
+    }
+  ],
+  "vim.useSystemClipboard": true,
+  "vue.server.hybridMode": "typeScriptPluginOnly",
+  "window.autoDetectColorScheme": false,
+  "window.systemColorTheme": "dark",
+  "window.titleBarStyle": "custom",
+  "workbench.colorCustomizations": {},
+  "workbench.colorTheme": "yuyuko-vim-vsc ocean",
+  "workbench.editor.empty.hint": "hidden",
+  "workbench.editorAssociations": {
+    "*.copilotmd": "vscode.markdown.preview.editor",
+    "git-rebase-todo": "gitlens.rebase",
+    "{git,gitlens,git-graph}:/**/*.{md,csv,svg}": "default",
+    "{hexdiff}:/**/*.*": "hexEditor.hexedit"
+  },
+  "workbench.iconTheme": "vscode-jetbrains-icon-theme-2023-auto",
+  "workbench.startupEditor": "none",
+  "C_Cpp.default.compilerPath": "/usr/bin/clang++"
+}

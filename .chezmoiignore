@@ -10,6 +10,16 @@ tests/**
 .github
 .github/**
 
+# Authentication, AI integrations and SSH connections belong to each machine.
+.claude
+.claude/**
+.codex
+.codex/**
+.ssh
+.ssh/**
+.config/dotfiles
+.config/dotfiles/**
+
 {{ if ne .chezmoi.os "darwin" }}
 Library
 Library/**

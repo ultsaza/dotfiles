@@ -1,0 +1,7 @@
+// 既定値を上書きするには、このファイル内にキー バインドを挿入しますauto[]
+[
+    {
+        "key": "ctrl+cmd+b",
+        "command": "latex-workshop.recipes"
+    }
+]

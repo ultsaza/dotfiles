@@ -12,7 +12,6 @@ import subprocess
 import sys
 import tempfile
 import time
-import tomllib
 import unittest
 
 
@@ -84,6 +83,17 @@ class DotfilesTest(unittest.TestCase):
             root = Path(temporary)
             home = root / "Home with spaces"
             home.mkdir()
+            # Adopting the dotfiles must preserve existing authentication and hosts.
+            local_files = {
+                ".claude/settings.json": '{"env":{"LOCAL_API_KEY":"local-only"}}\n',
+                ".claude/statusline-command.sh": "#!/bin/sh\nprintf local-status\n",
+                ".codex/config.toml": '[projects."/local/project"]\ntrust_level = "trusted"\n',
+                ".ssh/config": "Host mini\n    HostName 127.0.0.1\n",
+            }
+            for name, content in local_files.items():
+                file = home / name
+                file.parent.mkdir(parents=True, exist_ok=True)
+                file.write_text(content)
             config = root / "chezmoi.toml"
             config.write_text("")
             env = os.environ.copy()
@@ -122,12 +132,14 @@ class DotfilesTest(unittest.TestCase):
             read_json(native / "keybindings.json")
             self.assertEqual(tasks["tasks"][0]["command"],
                              "g++" if platform == "linux" else "clang++")
-            self.assertEqual("launch" in settings, platform == "linux")
             if platform == "darwin":
+                self.assertEqual(settings["launch"]["configurations"], [])
                 self.assertEqual(settings["C_Cpp.default.compilerPath"], "/usr/bin/clang++")
                 self.assertEqual(settings["terminal.integrated.fontFamily"],
-                                 "JetBrainsMono Nerd Font Mono")
+                                 "'JetBrainsMono Nerd Font Mono'")
+                self.assertEqual(read_json(native / "keybindings.json")[0]["key"], "ctrl+cmd+b")
             else:
+                self.assertIn("launch", settings)
                 self.assertNotIn("C_Cpp.default.compilerPath", settings)
 
             if platform == "linux":
@@ -166,11 +178,12 @@ class DotfilesTest(unittest.TestCase):
                 self.assertFalse((home / ".local/bin/zoom-launch").exists())
                 self.assertFalse((home / ".local/share/applications").exists())
 
-            claude = json.loads((home / ".claude/settings.json").read_text())
-            codex = tomllib.loads((home / ".codex/config.toml").read_text())
-            self.assertNotIn("NOTION_API_KEY", claude.get("env", {}))
-            self.assertNotIn("projects", codex)
-            self.assertEqual(stat.S_IMODE((home / ".codex/config.toml").stat().st_mode), 0o600)
+            for name, content in local_files.items():
+                self.assertEqual((home / name).read_text(), content)
+            managed = subprocess.run(command + ["managed"], env=env, check=True,
+                                     capture_output=True, text=True).stdout.splitlines()
+            self.assertFalse(any(name.startswith((".claude", ".codex", ".ssh"))
+                                 for name in managed))
             for name in ["README.md", "Brewfile", "docs", "scripts", "tests", ".github"]:
                 self.assertFalse((home / name).exists(), name)
             for file in home.rglob("*"):
@@ -224,6 +237,26 @@ class DotfilesTest(unittest.TestCase):
             after = {str(p.relative_to(home)): p.read_bytes() for p in home.rglob("*")
                      if p.is_file()}
             self.assertEqual(before, after)
+
+            if platform == "darwin":
+                # A private JSONC overlay survives apply and wins over portable defaults.
+                overrides = {
+                    "remote.SSH.remotePlatform": {"mini": "linux"},
+                    "C_Cpp.default.compilerPath": "/custom compiler/bin/g++",
+                    "editor.fontSize": 20,
+                }
+                local_settings = home / ".config/dotfiles/vscode.local.json"
+                local_settings.parent.mkdir(parents=True)
+                content = "// This machine only\n" + json.dumps(overrides) + "\n"
+                local_settings.write_text(content)
+                subprocess.run(command + ["apply", "--exclude=scripts"],
+                               env=env, check=True, capture_output=True, text=True)
+                settings = read_json(native / "settings.json")
+                for key, value in overrides.items():
+                    self.assertEqual(settings[key], value)
+                self.assertEqual(local_settings.read_text(), content)
+                for name, content in local_files.items():
+                    self.assertEqual((home / name).read_text(), content)
 
     def test_linux(self):
         self.check_platform("linux", "amd64")
