@@ -19,3 +19,5 @@ hl.window_rule({ ["workspace"] = "7", ["match"] = { ["tag"] = "im*" } })
 hl.window_rule({ ["workspace"] = "7", ["match"] = { ["class"] = "^([Ww]aydroid.*)$" } })
 hl.window_rule({ ["workspace"] = "8", ["match"] = { ["tag"] = "games*" } })
 hl.window_rule({ ["workspace"] = "9 silent", ["match"] = { ["tag"] = "multimedia*" } })
+-- Open RustDesk windows on workspace 5.
+hl.window_rule({ ["workspace"] = "5", ["match"] = { ["class"] = "^([Rr]ust[Dd]esk)$" } })
