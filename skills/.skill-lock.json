@@ -1,0 +1,194 @@
+{
+  "version": 3,
+  "skills": {
+    "agent-browser": {
+      "source": "vercel-labs/agent-browser",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vercel-labs/agent-browser.git",
+      "skillPath": "skills/agent-browser/SKILL.md",
+      "skillFolderHash": "82def67855a0d2aad7794207951820fa5422fdb0",
+      "installedAt": "2026-09-16T09:53:04.189Z",
+      "updatedAt": "2026-09-16T09:53:04.189Z"
+    },
+    "ai-research-explore": {
+      "source": "lllllllama/rigorpilot-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/lllllllama/rigorpilot-skills.git",
+      "skillPath": "skills/ai-research-explore/SKILL.md",
+      "skillFolderHash": "ad40f3339cc41b38a3360357657837ccbc771d53",
+      "installedAt": "2026-07-21T11:41:10.234Z",
+      "updatedAt": "2026-10-15T07:06:54.242Z"
+    },
+    "ax": {
+      "source": "yusukebe/ax",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/yusukebe/ax.git",
+      "skillPath": "skills/ax/SKILL.md",
+      "skillFolderHash": "be4e42e6b11bf79f26ddd5585b6c49f5a9219aa4",
+      "installedAt": "2026-07-10T17:32:56.776Z",
+      "updatedAt": "2026-07-28T04:03:21.824Z"
+    },
+    "developer-live-demo-design": {
+      "source": "samber/developer-relations-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/samber/developer-relations-skills.git",
+      "skillPath": "skills/developer-live-demo-design/SKILL.md",
+      "skillFolderHash": "824fc6faffa06efddaa6a3dd0ebfb81c69eca6aa",
+      "installedAt": "2026-10-05T04:49:11.375Z",
+      "updatedAt": "2026-10-05T04:49:11.375Z"
+    },
+    "domain-modeling": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/mattpocock/skills.git",
+      "ref": "3cca18b368ae95cdbdebbff572ccafa662551015",
+      "skillPath": "skills/engineering/domain-modeling/SKILL.md",
+      "skillFolderHash": "388c9822641805ca2dcd5038e68a1d5282437ee5",
+      "pluginName": "mattpocock-skills",
+      "installedAt": "2026-09-14T09:21:08.417Z",
+      "updatedAt": "2026-09-14T09:21:08.417Z"
+    },
+    "excalidraw-diagram-generator": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/github/awesome-copilot.git",
+      "skillPath": "skills/excalidraw-diagram-generator/SKILL.md",
+      "skillFolderHash": "dd3f9353c4106a8929217b399865db3952f8c13f",
+      "installedAt": "2026-09-24T21:37:01.633Z",
+      "updatedAt": "2026-09-24T21:37:01.633Z"
+    },
+    "figma-use": {
+      "source": "figma/mcp-server-guide",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/figma/mcp-server-guide.git",
+      "skillPath": "skills/figma-use/SKILL.md",
+      "skillFolderHash": "3817239b29e623a7d1e630477fbabf1d061ac634",
+      "installedAt": "2026-07-21T11:36:29.118Z",
+      "updatedAt": "2026-10-15T07:06:51.524Z"
+    },
+    "find-skills": {
+      "source": "vercel-labs/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vercel-labs/skills.git",
+      "skillPath": "skills/find-skills/SKILL.md",
+      "skillFolderHash": "76a98a285cb0434f3d39e1a873823556330e398b",
+      "installedAt": "2026-07-10T17:33:07.666Z",
+      "updatedAt": "2026-07-28T04:03:19.159Z"
+    },
+    "frontend-design": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/anthropics/skills.git",
+      "skillPath": "skills/frontend-design/SKILL.md",
+      "skillFolderHash": "d79e2a5bb4df4a386c2adcdd9ab8709bba28c3f6",
+      "installedAt": "2026-07-21T00:40:43.985Z",
+      "updatedAt": "2026-10-15T07:06:49.426Z"
+    },
+    "grill-me": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/mattpocock/skills.git",
+      "ref": "3cca18b368ae95cdbdebbff572ccafa662551015",
+      "skillPath": "skills/productivity/grill-me/SKILL.md",
+      "skillFolderHash": "3df14e2d3a89459bf300614be9247e3ce74798f8",
+      "pluginName": "mattpocock-skills",
+      "installedAt": "2026-07-21T00:41:16.154Z",
+      "updatedAt": "2026-09-14T09:21:08.419Z"
+    },
+    "grill-with-docs": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/mattpocock/skills.git",
+      "ref": "3cca18b368ae95cdbdebbff572ccafa662551015",
+      "skillPath": "skills/engineering/grill-with-docs/SKILL.md",
+      "skillFolderHash": "eedaf2562c83155115e9c649fa3ecaac2e10e81d",
+      "pluginName": "mattpocock-skills",
+      "installedAt": "2026-09-14T09:21:08.418Z",
+      "updatedAt": "2026-09-14T09:21:08.418Z"
+    },
+    "grilling": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/mattpocock/skills.git",
+      "ref": "3cca18b368ae95cdbdebbff572ccafa662551015",
+      "skillPath": "skills/productivity/grilling/SKILL.md",
+      "skillFolderHash": "f0732035b8b1b60ae39454e4191caef32fa91903",
+      "pluginName": "mattpocock-skills",
+      "installedAt": "2026-09-14T09:21:08.419Z",
+      "updatedAt": "2026-09-14T09:21:08.419Z"
+    },
+    "hallmark": {
+      "source": "nutlope/hallmark",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/nutlope/hallmark.git",
+      "skillPath": "skills/hallmark/SKILL.md",
+      "skillFolderHash": "747c924c4767b4d5fa6f1c59985c87a21c918334",
+      "installedAt": "2026-07-24T00:09:50.063Z",
+      "updatedAt": "2026-10-15T07:06:57.391Z"
+    },
+    "i-have-adhd": {
+      "source": "ayghri/i-have-adhd",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/ayghri/i-have-adhd.git",
+      "skillPath": "skills/i-have-adhd/SKILL.md",
+      "skillFolderHash": "759f1e56d0d2fdd3819d2a53b81e72767c08d914",
+      "installedAt": "2026-10-13T14:53:38.167Z",
+      "updatedAt": "2026-10-13T14:53:38.167Z"
+    },
+    "notion": {
+      "source": "steipete/clawdis",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/steipete/clawdis.git",
+      "skillPath": "skills/notion/SKILL.md",
+      "skillFolderHash": "d2e041c19097a66fa22c89991690aa69c7616895",
+      "installedAt": "2026-07-12T01:19:38.666Z",
+      "updatedAt": "2026-07-28T04:03:14.993Z"
+    },
+    "nvidia-kaggle-skill": {
+      "source": "nvidia/nvidia-kaggle",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/nvidia/nvidia-kaggle.git",
+      "skillPath": "skills/nvidia-kaggle-skill/SKILL.md",
+      "skillFolderHash": "df26c878cefe0f98f21bb6c34db68dd52600d3df",
+      "installedAt": "2026-07-17T14:23:12.985Z",
+      "updatedAt": "2026-10-15T07:06:47.563Z"
+    },
+    "remotion-best-practices": {
+      "source": "remotion-dev/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/remotion-dev/skills.git",
+      "skillPath": "skills/remotion-best-practices/SKILL.md",
+      "skillFolderHash": "52ebfc32e4e362cf41769499f31684391e883838",
+      "installedAt": "2026-10-05T04:49:56.895Z",
+      "updatedAt": "2026-10-15T07:07:04.810Z"
+    },
+    "skill-creator": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/anthropics/skills.git",
+      "skillPath": "skills/skill-creator/SKILL.md",
+      "skillFolderHash": "3cf9a8db32597ba3e24b584a3d696f4e11c7d7b6",
+      "pluginName": "example-skills",
+      "installedAt": "2026-07-21T00:43:59.732Z",
+      "updatedAt": "2026-07-28T04:02:03.624Z"
+    },
+    "vercel-react-best-practices": {
+      "source": "vercel-labs/agent-skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vercel-labs/agent-skills.git",
+      "skillPath": "skills/react-best-practices/SKILL.md",
+      "skillFolderHash": "343db72180d05814949fef7d46be96b5c6ee86b3",
+      "installedAt": "2026-07-21T00:43:08.294Z",
+      "updatedAt": "2026-07-28T04:03:17.751Z"
+    },
+    "yomiyasu": {
+      "source": "nanaism/yomiyasu",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/nanaism/yomiyasu.git",
+      "skillPath": "skills/yomiyasu/SKILL.md",
+      "skillFolderHash": "847d99a1eb742ead0270dd1b725545ad9ba2e727",
+      "installedAt": "2026-10-05T01:59:50.668Z",
+      "updatedAt": "2026-10-15T07:06:58.768Z"
+    }
+  }
+}

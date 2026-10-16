@@ -5,6 +5,8 @@ docs
 docs/**
 scripts
 scripts/**
+skills
+skills/**
 tests
 tests/**
 .github
