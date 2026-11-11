@@ -22,6 +22,9 @@ hl.window_rule({ ["workspace"] = "9 silent", ["match"] = { ["tag"] = "multimedia
 -- Open RustDesk windows on workspace 5.
 hl.window_rule({ ["workspace"] = "5", ["match"] = { ["class"] = "^([Rr]ust[Dd]esk)$" } })
 
+-- Open Hermes Desktop windows on workspace 4.
+hl.window_rule({ ["workspace"] = "4", ["match"] = { ["class"] = "^(com\\.nousresearch\\.hermes)$" } })
+
 -- Keep both Whonix research VM windows together on workspace 3.
 hl.window_rule({ ["workspace"] = "3", ["match"] = { ["class"] = "^(qemu)$", ["title"] = "^QEMU \\(GATEWAY - Tor connection only - leave running\\).*$" } })
 hl.window_rule({ ["workspace"] = "3", ["match"] = { ["class"] = "^(qemu)$", ["title"] = "^QEMU \\(WORKSTATION - browse here - isolated\\).*$" } })
